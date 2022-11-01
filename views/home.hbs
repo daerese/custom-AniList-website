@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <title>AnyAnime</title>
+
+    {{!-- Fonts --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+
+    {{!-- Fontawesome icons --}}
+    <script src="https://kit.fontawesome.com/a4e8b7b3a4.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+
+    <header>
+
+        <nav class="navbar">
+
+                <div class="navbar-left">
+                    <button class="btn btn-icon btn-toggle">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+
+                    <p class="bold logo">Any<span>Anime</span></p>
+                </div>
+
+                <div class="navbar-center">
+                    {{!-- * Where the search bar will go --}}
+                    {{!-- * On mobile, this will appear on the left. --}}
+
+
+                    <div class="searchbar-container">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" id="searchBar"
+                            placeholder="Search Anime">
+                    </div>
+
+                </div>
+
+                <div class="navbar-right">
+
+                </div>
+
+        </nav>
+        
+        
+        <div class="container header-content">
+
+            <h1 class="display">Welcome to AnyAnime</h1>
+
+            <p>
+                Find your favorite anime, characters, and more through
+                the AniList database
+            </p>
+
+        </div>
+
+
+    </header>
+
+    <section class="section-list">
+
+        <div class="container">
+
+            <h3 class="list-title">  Current Season {{sectionTitle}} </h3>
+            
+            <div class="list-cards">
+
+                {{#if queryData.seasonFilter}}
+                    
+                    {{#each queryData.seasonFilter}}
+                        
+                        <div class="card anime-card">
+                            
+                            
+                            <div class="card-image-container">
+                                <img src="{{this.coverImage.large}}" alt="cover-image" class="card-image">
+                            </div>
+                            
+                            <div class="card-caption-container">
+                                {{!-- TODO: If the title doesn't include english, display romaji --}}
+                                {{#if this.title.english}}
+                                    <p class="bold light-text caption">{{this.title.english}}</p>
+                                    {{else}}
+                                    <p class="bold light-text caption">{{this.title.romaji}}</p>
+                                {{/if}}
+                            </div>
+                        </div>
+                        
+                    {{/each}}
+
+                {{/if}}
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+    <section class="spotlight">
+
+        <div class="carasoul">
+
+        </div>
+
+
+    </section>
+
+    <section class="section-list">
+
+    </section>
+
+    <section class="section-genre">
+
+    </section>
+    
+</body>
+</html>

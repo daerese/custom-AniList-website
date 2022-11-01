@@ -1,0 +1,24 @@
+{
+  "name": "custom-anilist-website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app",
+    "scss": "node-sass --watch scss -o css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-session": "^2.0.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "hbs": "^4.2.0",
+    "node-fetch": "^2.6.7",
+    "node-sass": "^7.0.3",
+    "nodemon": "^2.0.20",
+    "path": "^0.12.7"
+  }
+}

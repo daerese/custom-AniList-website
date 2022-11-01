@@ -1,0 +1,343 @@
+/* Simple reset options */
+:root {
+    --light-text: #5E5E5E; 
+    --lighter-text: #A1A6AD;
+
+
+    --color-main: #EFC1FF;
+    --color-main-sat: #BB74D8;
+    --color-main-dark: #4E4351;
+
+    --color-second: #00C8FF;
+    --color-second-sat: #6D91EA;
+    --color-second-dark: #5899B6;
+}
+
+html {
+    /* The dimensions will also calculate the margin and padding. */
+    box-sizing: boorder-box;
+    font-size: 1rem; /* 16px */
+    font-family: 'Inter', sans-serif;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit
+}
+
+body {
+    margin: 0;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, ol, ul {
+    /* margin: 0; */
+    /* padding: 0; */
+}
+
+
+
+ol, ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    /* height: auto;  */
+}
+
+/************** 
+* * BASE STYLES AND UTILITIES
+****************/
+/* Used to contain the content within sections
+   This will change within media queries. */
+.container { 
+    width: 90%;
+    margin: 0 auto; 
+    /* border: 1px solid red; */
+}
+
+section {
+    width: 100%;
+    border: 1px solid green;
+}
+
+
+/* * Utilites * */
+.bold {
+    font-weight: bold;
+}
+
+/* Light color */
+.light-text { 
+    color: var(--light-text);
+}
+
+.lighter-text {
+    color: var(--lighter-text);
+}
+
+/* Small text? Maybe delete this */
+.subtext {
+    font-size: 14px;
+}
+
+.caption {
+    font-size: 14px;
+}
+
+.subtext-small { 
+    font-size: 12px;
+}
+
+.logo {
+    /* margin: 0; */
+    padding: 0;
+    color: white;
+}
+
+.logo > span {
+    color: #EFC1FF;
+}
+
+/* * Buttons */
+
+.btn {
+    transition-duration: 300ms;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+
+
+/************** 
+* * Typography
+****************/
+p {
+    font-size: 1rem;
+}
+
+h1 {
+    font-size: 2.25rem;
+}
+
+h2 {
+    font-size: 1.75rem;
+}
+
+h3 {
+    font-size: 1.25rem;
+}
+
+figcaption {
+    font-size: 1rem;
+}
+
+
+/*************************************/
+/* * MOBILE STYLES */
+/*************************************/
+
+/**************
+* * Header - Home
+****************/
+header {
+    
+    width: 100%;
+    min-height: 100vh;
+
+    background-image: linear-gradient(rgba(82, 71, 71, 0.479), rgba(82, 71, 71, 0.479)), url("images/5-centimeters-bg-image.jpg");
+
+    background-position: top right; 
+
+    background-size: cover;
+    position: relative;
+
+    color: white;
+
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border: 1px solid pink; */
+
+    padding: .2rem .8rem;
+}
+
+.logo {
+    display: inline-block;
+}
+
+.btn-toggle { 
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.25rem;
+}
+
+/* * Navbar center (Searchbar) */
+
+.navbar-center { 
+    max-width: 50%;
+}
+
+.searchbar-container { 
+    color: white;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 4px 14px;
+
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+
+    transition-duration: 300ms;
+    transition-timing-function: ease-in-out;
+}
+
+.searchbar-container:focus-within {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.61);
+}
+
+#searchBar {
+    background: transparent;
+    border: none;
+    color: white;
+    width: 100%;
+}
+
+#searchBar:focus {
+    outline: none;
+}
+
+.search-icon {
+    margin-right: 5px;
+}
+
+/* * Navbar right */
+.navbar-right { 
+    display: none;
+}
+
+
+
+/* * Hero Display text */
+
+/* TODO: Make sure the  */
+.display {
+    margin-bottom: 12px;
+}
+
+.header-content { 
+    /* max-width: 50%; */
+    margin-top: 20%;
+}
+
+.header-content > p { 
+    font-weight: 300;
+    /* max-width: 50%; */
+}
+
+/**************
+* * List sections
+****************/
+.list-cards { 
+    position: relative;
+    display: grid;
+    gap: 1.3rem 10px;
+    grid: repeat(2, 1fr) / repeat(2, 1fr);
+
+    justify-items: stretch;
+    align-items: stretch;
+}
+
+.card {
+    /* text-align: left; */
+    border: 1px solid blue;
+}
+
+/* .card-image-container:hover::before {
+    background-image: linear-gradient(to top right, #1a1a1a, transparent);
+    content: "";
+    height: 100%;
+    position: absolute;
+    width: 100%;
+} */
+
+.anime-card { 
+    min-width: 130px; 
+    min-height: 200px;
+    /* display: flex;  */
+    /* flex-direction: column; */
+}
+
+.card-image-container {
+    background: #D99494;     
+    /* width: 100%; */
+    /* flex-grow: 1; */
+    /* flex-shrink: 0;  */
+    height: 80%;
+}
+
+.card-image {
+    /* flex-grow: 0; */
+    object-fit: cover;
+
+    width: 100%;
+    height: 100%;
+    /* min-height: inherit; */
+    /* min-width: inherit; */
+    /* height: 100%; */
+}
+
+.grid-item { 
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*************************************/
+/* * MEDIA QUERIES */
+/*************************************/
+
+/**************
+* * Large Mobile
+****************/
+
+
+@media screen and (min-width: 405px) {
+    /* Let's change the grids on the home page to 2x3 */
+
+
+}
+
+
+
+/**************
+* * Small Tablets
+****************/
+
+
+
+
+
+/************** 
+* * Large tablets and laptops
+****************/
+
+
+/************** 
+* * Desktop
+****************/
