@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="/css/style.css">
     <title>AnyAnime</title>
 
+    {{!-- Jquery CDN --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
     {{!-- Fonts --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,6 +18,7 @@
 
     {{!-- Fontawesome icons --}}
     <script src="https://kit.fontawesome.com/a4e8b7b3a4.js" crossorigin="anonymous"></script>
+
 
 </head>
 <body>
@@ -88,9 +92,9 @@
                             <div class="card-caption-container">
                                 {{!-- TODO: If the title doesn't include english, display romaji --}}
                                 {{#if this.title.english}}
-                                    <p class="bold light-text caption">{{this.title.english}}</p>
+                                    <p class="title bold light-text caption">{{this.title.english}}</p>
                                     {{else}}
-                                    <p class="bold light-text caption">{{this.title.romaji}}</p>
+                                    <p class="title bold light-text caption">{{this.title.romaji}}</p>
                                 {{/if}}
                             </div>
                         </div>
@@ -107,9 +111,77 @@
 
     </section>
 
-    <section class="spotlight">
+    <section class="section-spotlight">
 
-        <div class="carasoul">
+        
+        <div class="container spotlight-container">
+
+            <h2 class="spotlight-header">Top 10 Most Popular</h2>
+
+            <div class="carousel flex">
+
+                <div class="carousel-left">
+                    <button class="btn btn-icon" id="btn-carousel-left">
+                        <i class="fa-solid fa-angles-left"></i>
+                    </button>
+                </div>
+
+                {{!-- TODO: Dynamically insert content into the carousel --}}
+
+                <div class="carousel-content flex">
+                    {{!-- ? this is where each card will go.
+                          TODO: Apply flex to this container and Overflow-x --}}
+
+                    {{#if queryData.popularityFilter}}
+                        
+                        {{#each queryData.popularityFilter}}
+                            
+                            <div class="card card-spotlight">
+
+                                <div class="card-image-spotlight-container">
+                                    <img src={{this.coverImage.large}} class="card-image card-image-spotlight" alt="">
+                                </div>
+
+                                <div class="card-details-spotlight-container">
+                                    
+                                    <div class="details-spotlight-mobile">
+                                        {{!-- ? This element will appear for mobile screens. --}}
+                                        <p>{{this.title.english}}</p>
+                                        <p class="rating-text bold">{{this.averageScore}}% Average Rating</p>
+                                    </div>
+
+                                    <div class="details-spotlight-desktop">
+                                        {{!-- TODO: Add content for larger screen sizes. --}}
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        {{/each}}
+
+                        {{else}}
+                        <p class="bold">None were found!</p>
+
+
+                    {{/if}}
+                    
+
+
+                </div>
+
+
+                <div class="carousel-right">
+                    <button class="btn btn-icon" id="btn-carousel-right">
+                        <i class="fa-solid fa-angles-right"></i>
+                    </button>
+                </div>
+
+
+
+
+            </div>
 
         </div>
 
@@ -118,11 +190,62 @@
 
     <section class="section-list">
 
+        <div class="container">
+
+            <h3 class="list-title"> Trending Anime {{sectionTitle}} </h3>
+            
+            <div class="list-cards">
+
+                {{#if queryData.trendingFilter}}
+                    
+                    {{#each queryData.trendingFilter}}
+                        
+                        <div class="card anime-card">
+                            
+                            
+                            <div class="card-image-container">
+                                <img src="{{this.coverImage.large}}" alt="cover-image" class="card-image">
+                            </div>
+                            
+                            <div class="card-caption-container">
+                                {{!-- TODO: If the title doesn't include english, display romaji --}}
+                                {{#if this.title.english}}
+                                    <p class="title bold light-text caption">{{this.title.english}}</p>
+                                    {{else}}
+                                    <p class="title bold light-text caption">{{this.title.romaji}}</p>
+                                {{/if}}
+                            </div>
+                        </div>
+                        
+                    {{/each}}
+
+                {{/if}}
+
+            </div>
+
     </section>
 
     <section class="section-genre">
 
     </section>
-    
+
+
+<script>
+
+$(document).ready( () => {
+
+    // Carousel
+    function nextSlide() {
+        
+    }
+
+})
+
+
+</script>
+
 </body>
+
+
+
 </html>

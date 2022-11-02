@@ -2,11 +2,12 @@
 :root {
     --light-text: #5E5E5E; 
     --lighter-text: #A1A6AD;
+    --rating-text: #97FF73;
 
 
     --color-main: #EFC1FF;
     --color-main-sat: #BB74D8;
-    --color-main-dark: #4E4351;
+    --color-main-dark: #6b5770;
 
     --color-second: #00C8FF;
     --color-second-sat: #6D91EA;
@@ -15,7 +16,7 @@
 
 html {
     /* The dimensions will also calculate the margin and padding. */
-    box-sizing: boorder-box;
+    box-sizing: border-box;
     font-size: 1rem; /* 16px */
     font-family: 'Inter', sans-serif;
 }
@@ -57,7 +58,9 @@ img {
 
 section {
     width: 100%;
-    border: 1px solid green;
+    /* border: 1px solid green; */
+    padding-top: 1rem; 
+    padding-bottom: 1rem;
 }
 
 
@@ -88,6 +91,10 @@ section {
     font-size: 12px;
 }
 
+.rating-text {
+    color: var(--rating-text)
+}
+
 .logo {
     /* margin: 0; */
     padding: 0;
@@ -96,6 +103,11 @@ section {
 
 .logo > span {
     color: #EFC1FF;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
 }
 
 /* * Buttons */
@@ -170,11 +182,15 @@ header {
     display: inline-block;
 }
 
-.btn-toggle { 
+.btn-icon { 
     background: transparent;
     border: none;
-    color: white;
     font-size: 1.25rem;
+    
+}
+
+.btn-toggle { 
+    color: white;
 }
 
 /* * Navbar center (Searchbar) */
@@ -255,7 +271,8 @@ header {
 
 .card {
     /* text-align: left; */
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
+    transition-duration: 300ms;
 }
 
 /* .card-image-container:hover::before {
@@ -273,12 +290,30 @@ header {
     /* flex-direction: column; */
 }
 
+.anime-card:hover {
+    cursor: pointer;
+}
+
+.anime-card:hover .card-image {
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.418);
+}
+
+
+.anime-card:hover p {
+    color: var(--color-main-sat);
+}
+
+.title {
+    transition-duration: 300ms;
+}
+
 .card-image-container {
     background: #D99494;     
     /* width: 100%; */
     /* flex-grow: 1; */
     /* flex-shrink: 0;  */
     height: 80%;
+    border-radius: 12px;
 }
 
 .card-image {
@@ -287,13 +322,95 @@ header {
 
     width: 100%;
     height: 100%;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.185);
     /* min-height: inherit; */
     /* min-width: inherit; */
     /* height: 100%; */
+    transition-duration: 300ms;
 }
+
+
 
 .grid-item { 
 
+}
+
+
+
+/**************
+* * Spotlight Section
+****************/
+
+.section-spotlight { 
+    width: 100%;
+    background-color: #8BC6EC;
+    background-image: linear-gradient(135deg, #8BC6EC 0%, #393b6e 75%);
+
+    /* overflow-y: auto; */
+}
+
+.spotlight-container {
+    text-align: center;
+}
+
+.spotlight-container .card-details-spotlight-container {
+    text-align: left;
+}
+
+.spotlight-header {
+    /* color: var(--color-main) */
+    color: rgb(230, 230, 230);
+}
+
+.carousel {
+    /* display: flex; */
+    /* overflow-x: auto; */
+    justify-content: space-between;
+}
+
+.carousel-left, .carousel-right {
+    /* width: 30%; */
+    /* border: 1px solid red; */
+}
+
+
+/* * Carousel Center (Divs containing image and details) */
+.carousel-content {
+    /* center of the carousel */
+    width: 80%;
+    padding: .7rem;
+
+    overflow-x: auto;
+
+    /* * The divs will move smoothly to each other. */
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+}
+
+.carousel-content::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel-content div:last-child {
+    margin-right: 0;
+}
+
+.card-spotlight { 
+    width: 100%;
+
+    flex-shrink: 0;
+
+    scroll-snap-align: center;
+    margin-right: 50px;
+}
+
+.card-image-spotlight {
+    box-shadow: none;
+}
+
+.details-spotlight-desktop {
+    display: none;
 }
 
 

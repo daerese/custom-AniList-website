@@ -28,10 +28,30 @@ const options = {
     })
 }
 
+const getOptions = (query) => {
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            query: query,
+            // query: queries.animeCards.seasonFilter, //insert query
+            // variables = //insert variables if necessary
+        })
+    }
+
+    return options
+    
+}
+
 // * Function to get the anime information
-const getAnime = async () => {
+const getAnime = async (query) => {
+
+    const fetchOptions = getOptions(query)
     // * Using fetch
-    const data = await fetch(url, options)
+    const data = await fetch(url, fetchOptions)
         .then(res => res.json())
         .then(json => {
             return Object.values(json)[0]
@@ -44,16 +64,19 @@ const getAnime = async () => {
 // Index page route
 router.route('/').get( async (req, res) => {
 
-    const animeData = await getAnime()
+    const seasonFilter = await getAnime(queries.animeCards.seasonFilter)
 
-    console.log(animeData.Page.media)
+    const popularityFilter = await getAnime(queries.animeCards.popularityFilter)
+
+    const trendingFilter = await getAnime(queries.animeCards.trendingFilter)
+
+    console.log(popularityFilter.Page.media)
 
     res.locals.queryData = {
-        seasonFilter: animeData.Page.media
+        seasonFilter: seasonFilter.Page.media,
+        popularityFilter: popularityFilter.Page.media,
+        trendingFilter: trendingFilter.Page.media
     }
-
-    
-
 
     res.render('home')
 })
