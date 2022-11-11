@@ -24,12 +24,14 @@
 <body>
 
 
-    <header>
 
-        <nav class="navbar">
+    <header class="header-home">
 
+        <nav class="navbar" id="navbar">
+
+            <div class="container flex-space">
                 <div class="navbar-left">
-                    <button class="btn btn-icon btn-toggle">
+                    <button class="btn btn-icon" id="btn-toggle-nav">
                         <i class="fa-solid fa-bars"></i>
                     </button>
 
@@ -41,20 +43,53 @@
                     {{!-- * On mobile, this will appear on the left. --}}
 
 
-                    <div class="searchbar-container">
+                    <form action="/search/anime" method="GET" class="searchbar-container">
                         <i class="fa-solid fa-magnifying-glass search-icon"></i>
                         <input type="text" id="searchBar"
-                            placeholder="Search Anime">
-                    </div>
+                            placeholder="Search Anime" name="search">
+                        <button type="submit" style="display: none;"></button>
+                    </form>
 
                 </div>
 
                 <div class="navbar-right">
+                    
+                    <ul>
+                        <li>Home</li>
+                        <li>Anime</li>
+                        <li>Characters</li>
+                    </ul>
 
                 </div>
+            </div>
 
+            <div id="nav-menu">
+
+                <div class="container">
+                    <ul id="nav-menu-links">
+                        <li class="bold nav-menu-link"> 
+                            <a href="/">Home</a>
+                            <div class="line"></div>
+                        </li>
+                        <li class="bold nav-menu-link">
+                            <div class="nav-menu-link-inner">
+                                <a href="">Anime</a>
+                                <div class="line"></div>
+                            </div>
+                        </li>
+                        <li class="bold nav-menu-link">
+                            <a href="">Manga</a>
+                            <div class="line"></div>
+                        </li>
+                        <li class="bold nav-menu-link">
+                            <a href="">Characters</a>
+                            <div class="line"></div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
         </nav>
-        
         
         <div class="container header-content">
 
@@ -74,7 +109,7 @@
 
         <div class="container">
 
-            <h3 class="list-title">  Current Season {{sectionTitle}} </h3>
+            <h3 class="section-title"> Current Season {{sectionTitle}} </h3>
             
             <div class="list-cards">
 
@@ -82,11 +117,13 @@
                     
                     {{#each queryData.seasonFilter}}
                         
-                        <div class="card anime-card">
+                        <div class="card anime-card" data-anime-id="{{this.id}}">
                             
                             
                             <div class="card-image-container">
-                                <img src="{{this.coverImage.large}}" alt="cover-image" class="card-image">
+                                <a href="http://localhost:3001/anime/{{this.id}}">
+                                    <img src="{{this.coverImage.large}}" alt="cover-image" class="card-image">
+                                </a>
                             </div>
                             
                             <div class="card-caption-container">
@@ -102,6 +139,8 @@
                     {{/each}}
 
                 {{/if}}
+
+            
 
             </div>
 
@@ -136,7 +175,7 @@
                         
                         {{#each queryData.popularityFilter}}
                             
-                            <div class="card card-spotlight">
+                            <div class="card card-spotlight" data-anime-id="{{this.id}}">
 
                                 <div class="card-image-spotlight-container">
                                     <img src={{this.coverImage.large}} class="card-image card-image-spotlight" alt="">
@@ -144,13 +183,13 @@
 
                                 <div class="card-details-spotlight-container">
                                     
-                                    <div class="details-spotlight-mobile">
+                                    <div class="details-spotlight details-spotlight-mobile">
                                         {{!-- ? This element will appear for mobile screens. --}}
-                                        <p>{{this.title.english}}</p>
+                                        <p class="title bold">{{this.title.english}}</p>
                                         <p class="rating-text bold">{{this.averageScore}}% Average Rating</p>
                                     </div>
 
-                                    <div class="details-spotlight-desktop">
+                                    <div class="details-spotlight details-spotlight-desktop">
                                         {{!-- TODO: Add content for larger screen sizes. --}}
 
                                     </div>
@@ -200,11 +239,13 @@
                     
                     {{#each queryData.trendingFilter}}
                         
-                        <div class="card anime-card">
+                        <div class="card anime-card" data-anime-id="{{this.id}}">
                             
                             
                             <div class="card-image-container">
-                                <img src="{{this.coverImage.large}}" alt="cover-image" class="card-image">
+                                <a href="http://localhost:3001/anime/{{this.id}}">
+                                    <img src="{{this.coverImage.large}}" alt="cover-image" class="card-image">                                
+                                </a>
                             </div>
                             
                             <div class="card-caption-container">
@@ -227,12 +268,118 @@
 
     <section class="section-genre">
 
+        <div class="container">
+            <h3 class="section-title genre-section-title">Genre Tags</h3>
+
+            <div class="genre-tags-container">
+
+                <div class="flex-column">
+                    
+                    <button class="btn btn-secondary btn-genre">Action</button>
+                    <button class="btn btn-secondary btn-genre">Action</button>
+                    <button class="btn btn-secondary btn-genre">Action</button>
+                    <button class="btn btn-secondary btn-genre">Action</button>
+                    <button class="btn btn-secondary btn-genre">Action</button>
+                    <button class="btn btn-secondary btn-genre">Action</button>
+                    <button class="btn btn-secondary btn-genre">Action</button>
+
+                </div>
+
+                <div class="flex-column">
+                    <button class="btn btn-secondary btn-genre">Action</button>
+                    <button class="btn btn-secondary btn-genre">Action</button>
+                    <button class="btn btn-secondary btn-genre">Action</button>
+                    <button class="btn btn-secondary btn-genre">Action</button>
+                    <button class="btn btn-secondary btn-genre">Action</button>
+                    <button class="btn btn-secondary btn-genre">Action</button>
+                    <button class="btn btn-secondary btn-genre">Action</button>
+                </div>
+
+
+            </div>
+        </div>
+
     </section>
 
 
 <script>
 
 $(document).ready( () => {
+
+    $(window).scroll( (event) => {
+        if($(window).scrollTop()) {
+            // If the scroll position is NOT at the top.
+
+            $('#navbar').addClass('navbar-bg');
+        
+            // Give the navbar a fixed position. when scrolling the rest of the page.
+            const headerHeight = ($('header').height() - 60)
+            //console.log(headerHeight)
+
+            if ($(window).scrollTop() >= headerHeight) {
+                $('#navbar').addClass('navbar-fixed')
+                $('header').addClass('border-top')
+
+                // console.log('END OF HEADER REACHED')
+            }
+            else {
+                $('#navbar').removeClass('navbar-fixed')
+                $('header').removeClass('border-top')
+            }
+
+        } else {
+            
+            //If the scroll position of the window is at the top.
+            if(!($('#nav-menu').hasClass('nav-menu-open'))) {
+                $('#navbar').removeClass('navbar-bg')
+            }
+            console.log('Back at the top')
+        }
+    })
+
+    $('#btn-toggle-nav').click( (event) => {
+        toggleNav(event)
+    })
+
+    $('#nav-menu').mouseenter(() => {
+        console.log('Nav menu Hovered')
+    })
+
+    function toggleNav(event) {
+
+        if ($('#nav-menu').hasClass('nav-menu-open')) {
+
+            console.log('Menu has it. Removing it...')
+            //$('#nav-menu').css('height', 'auto')
+            $('#nav-menu').removeClass('nav-menu-open')
+
+            $('#nav-menu').css({'opacity': 0,
+                                'pointer-events': 'none'})
+
+            if(!($(window).scrollTop())) {
+                $('#navbar').removeClass('navbar-bg')
+            }
+
+            // TODO: Turn the button into an x. 
+
+        } else {
+
+            console.log('Menu does not have it, adding it.')
+            $('#nav-menu').addClass('nav-menu-open')
+
+            $('#nav-menu').css({'opacity': 1,
+                                'pointer-events': 'auto'});
+
+
+            $('#navbar').addClass('navbar-bg')
+            
+        }
+
+    }
+
+    function closeNav() {
+        $('#nav-menu').css('height', 0)
+    }
 
     // Carousel
     function nextSlide() {

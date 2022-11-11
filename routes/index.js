@@ -16,44 +16,63 @@ const queries = require('../graphql-queries')
 
 const url = 'https://graphql.anilist.co';
 
-const options = {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-    },
-    body: JSON.stringify({
-        query: queries.animeCards.seasonFilter, //insert query
-        // variables = //insert variables if necessary
-    })
-}
+// const options = {
+//     method: 'POST',
+//     headers: {
+//         'Content-Type': 'application/json',
+//         'Accept': 'application/json'
+//     },
+//     body: JSON.stringify({
+//         query: queries.animeCards.seasonFilter, //insert query
+//         // variables = //insert variables if necessary
+//     })
+// }
 
-const getOptions = (query) => {
+const getOptions = (query, variables=null) => {
+    
+    const body = {query: query}
+
+    // console.log('BODY', body)
+
+    if (variables) {
+        body.variables = variables
+    }
+    
     const options = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         },
-        body: JSON.stringify({
-            query: query,
-            // query: queries.animeCards.seasonFilter, //insert query
-            // variables = //insert variables if necessary
-        })
+        body: JSON.stringify(body)
     }
+
+    // const options = {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'Accept': 'application/json'
+    //     },
+    //     body: JSON.stringify({ 
+    //         query: query
+    //      })
+    // }
 
     return options
     
 }
 
 // * Function to get the anime information
-const getAnime = async (query) => {
+const getAnime = async (query, variables=null) => {
 
-    const fetchOptions = getOptions(query)
+    const fetchOptions = getOptions(query, variables)
+
+    // console.log('OPTIONS: ', fetchOptions)
     // * Using fetch
     const data = await fetch(url, fetchOptions)
         .then(res => res.json())
         .then(json => {
+            console.log(Object.values(json)[0])
             return Object.values(json)[0]
         })
         .catch(err => console.error('error:' + err))
@@ -64,23 +83,90 @@ const getAnime = async (query) => {
 // Index page route
 router.route('/').get( async (req, res) => {
 
-    const seasonFilter = await getAnime(queries.animeCards.seasonFilter)
 
-    const popularityFilter = await getAnime(queries.animeCards.popularityFilter)
-
-    const trendingFilter = await getAnime(queries.animeCards.trendingFilter)
-
-    console.log(popularityFilter.Page.media)
-
-    res.locals.queryData = {
-        seasonFilter: seasonFilter.Page.media,
-        popularityFilter: popularityFilter.Page.media,
-        trendingFilter: trendingFilter.Page.media
+    try {
+        const seasonFilter = await getAnime(queries.animeCards.seasonFilter)
+    
+        const popularityFilter = await getAnime(queries.animeCards.popularityFilter)
+    
+        const trendingFilter = await getAnime(queries.animeCards.trendingFilter)
+    
+        const genres = await getAnime(queries.general.allGenreTags);
+    
+        console.log(genres)
+    
+        res.locals.queryData = {
+            seasonFilter: seasonFilter.Page.media,
+            popularityFilter: popularityFilter.Page.media,
+            trendingFilter: trendingFilter.Page.media,
+            genres: genres
+        }
+    
+        res.render('home')
+    } catch (err) {
+        console.log(err)
     }
+})
 
-    res.render('home')
+router.route('/anime/:id').get( async (req, res) => {
+
+    try {
+        // ? According to the AniList Documentation, variables that we pass in for
+        // ? a query have to be inside of an object. 
+        const animeId = {
+            id: req.params.id
+        }
+    
+        const currAnime = await getAnime(queries.animePage, animeId)
+    
+        console.log(currAnime.Media.reviews.edges)
+        console.log(currAnime.Media.recommendations.edges)
+    
+        res.locals.queryData = {
+            currAnime: currAnime.Media
+        }
+    
+        res.render('anime')
+
+    } catch(err) {
+        console.log(err);
+    }
+    
+
 })
 
 
+router.route('/search/anime?:search').get( async (req, res) => {
+
+    try {
+
+        // * Apply the search within your search query. Pass the returened search into 
+        // * locals
+
+        const search = {
+            search: req.query.search
+        }
+
+        const searchResults = await getAnime(queries.general.search, search);
+
+        // console.log(searchResults.Page.media)
+
+        res.locals.queryData = {
+            results: searchResults.Page.media
+        }
+
+        res.render('search')
+    }
+    catch(error) {
+        console.log(error)
+    }
+
+})
+
+
+//Other routes here
+router.route('*').get(function(req, res){
+    res.send('Sorry, this is wrong URL.');
+});
 
 module.exports = router

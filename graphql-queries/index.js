@@ -89,10 +89,140 @@ const queries = {
               
             }
           }
-        `
+        `,
+    },
+
+    animePage: `
+      query animePage ($id: Int) { # Define which variables will be used in the query (id)
+        Media (id: $id, type: ANIME) { # Insert our variables into the query arguments (id) (type: ANIME is hard-coded in the query)
+          id
+          
+          coverImage {
+            large
+          }
+          
+          bannerImage 
+          
+          title {
+            romaji
+            english
+            native
+          }
+
+          recommendations {
+            edges {
+              node {
+                id
+                mediaRecommendation {
+                  id
+                  title {
+                    userPreferred
+                    romaji
+                    english
+                    native
+                  }
+                  coverImage {
+                    extraLarge
+                    large
+                    medium
+                  }
+                }
+              }
+            }
+          }
+
+          reviews (page: 1, perPage: 10, sort: RATING_DESC) {
+            edges {
+              node {
+                id
+                createdAt
+                summary
+                rating
+                ratingAmount
+                score
+                user {
+                  id
+                  name
+                  avatar {
+                    large
+                    medium
+                  }
+                }
+                body
+              }
+            }
+          }
+          
+          characters(sort: ROLE) {
+            edges {
+              id
+              
+              node {
+                name {
+                  first
+                  middle
+                  last
+                  full
+                  native
+                  userPreferred
+                }
+                gender
+                image {
+                  large
+                  medium
+                }
+              }
+              
+            }
+          }
+
+          genres
+          
+          description(asHtml: false)
+        }
+      }
+    `,
+    general: {
+      allGenreTags: `{
+        GenreCollection
+      }
+      `,
+      search: `
+         query search ($search: String) {
+          Page (page: 1, perPage: 20) {
+            pageInfo {
+              total
+              currentPage
+              lastPage
+              hasNextPage
+              perPage
+            }
+            media (type: ANIME, search: $search) {
+              id
+              season
+              title {
+                romaji
+                english
+                native
+                userPreferred
+              }
+              
+              coverImage {
+                extraLarge
+                large
+                medium
+                color
+              }
 
 
-
+            
+              
+              
+            }
+          }
+        
+        }
+      `
     }
 }
 

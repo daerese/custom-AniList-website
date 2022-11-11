@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> head}}
+</head>
+<body>
+    <header class="header-search" data-banner="{{queryData.currAnime.bannerImage}}"
+            style="--banner-image: url({{queryData.currAnime.bannerImage}})">
+        <nav class="navbar navbar-other" style="flex-grow: 0; flex-shrink: 0;" id="navbar">
+
+            <div class="container flex-space">
+                <div class="navbar-left">
+                    <button class="btn btn-icon" id="btn-toggle-nav">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+
+                    <p class="bold logo">Any<span>Anime</span></p>
+                </div>
+
+                <div class="navbar-center">
+                    {{!-- * Where the search bar will go --}}
+                    {{!-- * On mobile, this will appear on the left. --}}
+
+
+                    <form action="/search/anime" method="GET" class="searchbar-container">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" id="searchBar"
+                            placeholder="Search Anime" name="search">
+                        <button type="submit" style="display: none;"></button>
+                    </form>
+
+                </div>
+
+                <div class="navbar-right">
+                    
+                    <ul>
+                        <li>Home</li>
+                        <li>Anime</li>
+                        <li>Characters</li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <div id="nav-menu">
+
+                <div class="container">
+                    <ul id="nav-menu-links">
+                        <li class="bold nav-menu-link"> 
+                            <a href="/">Home</a>
+                            <div class="line"></div>
+                        </li>
+                        <li class="bold nav-menu-link">
+                            <div class="nav-menu-link-inner">
+                                <a href="">Anime</a>
+                                <div class="line"></div>
+                            </div>
+                        </li>
+                        <li class="bold nav-menu-link">
+                            <a href="">Manga</a>
+                            <div class="line"></div>
+                        </li>
+                        <li class="bold nav-menu-link">
+                            <a href="">Characters</a>
+                            <div class="line"></div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+
+    </header>
+
+    <div class="container results-wrapper">
+
+
+        <div class="results-header">
+            <h3>Search Results</h3>
+
+            <hr>
+        </div>
+
+        <div class="search-cards-container">
+
+
+
+            {{#if queryData.results}}
+
+            {{#each queryData.results}}
+                
+                <!--<a href="http://localhost:3001/anime/{{this.id}}">
+                    <div class="card page-card" data-media-id="{{this.id}}">
+                        
+                        <div class="page-card-image-container">
+                            <img class="card-image" src="{{this.coverImage.extraLarge}}" alt="content-image">
+                        </div>
+                        
+
+                        <p class="subtext bold page-card-name">
+                            {{#if this.title.userPreferred}}
+                                {{this.title.userPreferred}}
+                            {{/if}}
+                        </p>
+                    </div>
+                </a> -->
+
+                <a class="card-link" href="http://localhost:3001/anime/{{this.id}}">
+                    <div class="card search-card">
+
+                        <div class="search-card-image-container">
+                            <img src="{{this.coverImage.extraLarge}}" alt="">
+                        </div>
+
+                        <p class="subtext bold">
+                            {{this.title.userPreferred}}
+                        </p>
+
+                    </div>
+                </a>
+
+                <!-- <div class="test"></div>
+                <div class="test"></div>
+                <div class="test"></div>
+                <div class="test"></div>
+                <div class="test"></div>
+                <div class="test"></div> --> 
+            {{/each}}
+            {{/if}}
+        </div>
+
+
+    </div>
+
+<script>
+        $(document).ready( () => {
+
+    $('#btn-toggle-nav').click( (event) => {
+            toggleNav(event)
+    })
+
+    function toggleNav(event) {
+
+        if ($('#nav-menu').hasClass('nav-menu-open')) {
+
+            console.log('Menu has it. Removing it...')
+            //$('#nav-menu').css('height', 'auto')
+            $('#nav-menu').removeClass('nav-menu-open')
+
+            $('#nav-menu').css({'opacity': 0,
+                                'pointer-events': 'none'})
+
+            if(!($(window).scrollTop())) {
+                $('#navbar').removeClass('navbar-bg')
+            }
+
+            // TODO: Turn the button into an x. 
+
+        } else {
+
+            console.log('Menu does not have it, adding it.')
+            $('#nav-menu').addClass('nav-menu-open')
+
+            $('#nav-menu').css({'opacity': 1,
+                                'pointer-events': 'auto'});
+
+
+            $('#navbar').addClass('navbar-bg')
+            
+        }
+
+    }
+
+    function closeNav() {
+        $('#nav-menu').css('height', 0)
+    }
+})
+</script>
+</body>
+</html>

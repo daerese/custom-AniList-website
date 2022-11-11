@@ -1,0 +1,62 @@
+<nav class="navbar" id="navbar">
+
+    <div class="container flex-space">
+        <div class="navbar-left">
+            <button class="btn btn-icon" id="btn-toggle-nav">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <p class="bold logo">Any<span>Anime</span></p>
+        </div>
+
+        <div class="navbar-center">
+            {{!-- * Where the search bar will go --}}
+            {{!-- * On mobile, this will appear on the left. --}}
+
+
+            <div class="searchbar-container">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="searchBar"
+                    placeholder="Search Anime">
+            </div>
+
+        </div>
+
+        <div class="navbar-right">
+            
+            <ul>
+                <li>Home</li>
+                <li>Anime</li>
+                <li>Characters</li>
+            </ul>
+
+        </div>
+    </div>
+
+    <div id="nav-menu">
+
+        <div class="container">
+            <ul id="nav-menu-links">
+                <li class="bold nav-menu-link"> 
+                    <a href="/">Home</a>
+                    <div class="line"></div>
+                </li>
+                <li class="bold nav-menu-link">
+                    <div class="nav-menu-link-inner">
+                        <a href="">Anime</a>
+                        <div class="line"></div>
+                    </div>
+                </li>
+                <li class="bold nav-menu-link">
+                    <a href="">Manga</a>
+                    <div class="line"></div>
+                </li>
+                <li class="bold nav-menu-link">
+                    <a href="">Characters</a>
+                    <div class="line"></div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</nav>

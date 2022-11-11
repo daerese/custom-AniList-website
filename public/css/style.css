@@ -4,14 +4,20 @@
     --lighter-text: #A1A6AD;
     --rating-text: #97FF73;
 
+    --opaque-black: rgba(0, 0, 0, 0.904);
+
 
     --color-main: #EFC1FF;
+    --color-main-light: #f3ceff;
     --color-main-sat: #BB74D8;
     --color-main-dark: #6b5770;
 
     --color-second: #00C8FF;
     --color-second-sat: #6D91EA;
-    --color-second-dark: #5899B6;
+    --color-second-dark: #354A54;
+
+    --box-shadow: 0 5px 10px rgba(0, 0, 0, 0.185);
+    --box-shadow-hover: 0 5px 10px rgba(0, 0, 0, 0.418);
 }
 
 html {
@@ -25,8 +31,23 @@ html {
     box-sizing: inherit
 }
 
+* {
+    /* margin: 0; */
+    /* padding: 0; */
+    /* border: 0; */
+    /* outline: 0; */
+    /* font-size: 100%; */
+    /* vertical-align: baseline; */
+    /* background: transparent; */
+}
+
 body {
     margin: 0;
+    padding: 0;
+
+    /* background: linear-gradient(to bottom, var(--color-main), white); */
+    /* background-position: center; */
+    /* background-size: 100vh; */
 }
 
 body, h1, h2, h3, h4, h5, h6, p, ol, ul {
@@ -40,9 +61,38 @@ ol, ul {
     list-style: none;
 }
 
+li {
+    list-style-type: none;
+}
+
 img {
     max-width: 100%;
+    display: block;
+    object-fit: cover;
     /* height: auto;  */
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition-duration: 100ms;
+}
+
+a:visited { 
+    color: inherit;
+}
+
+.card-link img {
+    transition-duration: 150ms;
+    box-shadow: var(--box-shadow);
+}
+
+.card-link:hover {
+    color: var(--color-main-sat);
+}
+
+.card-link:hover img {
+    box-shadow: var(--box-shadow-hover)
 }
 
 /************** 
@@ -69,6 +119,10 @@ section {
     font-weight: bold;
 }
 
+.paragraph {
+    line-height: 20px;
+}
+
 /* Light color */
 .light-text { 
     color: var(--light-text);
@@ -81,6 +135,7 @@ section {
 /* Small text? Maybe delete this */
 .subtext {
     font-size: 14px;
+    /* line-height: 20px; */
 }
 
 .caption {
@@ -105,22 +160,94 @@ section {
     color: #EFC1FF;
 }
 
+.flex-default {
+    display: flex;
+}
+
 .flex {
     display: flex;
     align-items: center;
 }
 
+.flex-space {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.flex-column {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.flex-column-space {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 /* * Buttons */
 
 .btn {
-    transition-duration: 300ms;
+    transition-duration: 175ms;
+    padding: 8px 16px;
+    font-weight: 700;
+    font-family: inherit;
+    /* font-family: 'Inter', sans-serif; */
 }
 
 .btn:hover {
     cursor: pointer;
 }
 
+.btn-secondary {
+    background-color: var(--color-second-dark);
+    color: white;
+}
 
+.btn-text {
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    padding: 10px;
+    padding-left: 0;
+    transition-duration: 200ms;
+}
+
+.btn-text:hover {
+    cursor: pointer;
+    color: var(--color-main-sat);
+}
+
+.btn-text-open-review {
+    
+}
+
+.btn-genre {
+    border: none;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.24);
+}
+
+.btn-genre:hover { 
+    background-color: var(--color-second);
+    color: black;
+}
+
+.btn-genre-details-page {
+    background: rgb(197, 197, 197);
+    border: none;
+    margin: 6px;
+}
+
+.btn-genre-details-page:hover {
+    background: rgb(175, 175, 175);
+    box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.13);
+}
+
+.btn-genre-details-page:active {
+    background: rgb(167, 167, 167);
+}
 
 /************** 
 * * Typography
@@ -131,6 +258,7 @@ p {
 
 h1 {
     font-size: 2.25rem;
+    margin-top: 0;
 }
 
 h2 {
@@ -146,6 +274,8 @@ figcaption {
 }
 
 
+
+
 /*************************************/
 /* * MOBILE STYLES */
 /*************************************/
@@ -153,29 +283,77 @@ figcaption {
 /**************
 * * Header - Home
 ****************/
+
+.border-top {
+    /* *A utility class used within the script JS. 
+    * It will be applied to the . Why?
+    *   -  */
+    border-top: 1px solid;
+}
+
 header {
-    
+    /* * The header contains a hero image / greeting, as well as the navbar. */
     width: 100%;
-    min-height: 100vh;
-
-    background-image: linear-gradient(rgba(82, 71, 71, 0.479), rgba(82, 71, 71, 0.479)), url("images/5-centimeters-bg-image.jpg");
-
-    background-position: top right; 
-
-    background-size: cover;
+    /* height: 100vh; */
+    
     position: relative;
-
     color: white;
+
+    margin-top: 0;
+    /* border-top: 1px solid; */
+    /* background-color: lightgreen; */
 
 }
 
+.header-home {
+
+    height: 100vh;
+
+    background-image: linear-gradient(rgba(82, 71, 71, 0.479), rgba(82, 71, 71, 0.479)), url("images/5-centimeters-bg-image.jpg");
+    background-position: top right; 
+    background-size: cover;
+    
+    margin-top: 0;
+}
+
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    /* display: flex; */
+    /* justify-content: space-between; */
+    /* align-items: center; */
     /* border: 1px solid pink; */
 
-    padding: .2rem .8rem;
+    /* padding: .2rem .8rem; */
+    padding-top: .2rem;
+    padding-bottom: .2rem;
+
+    position: sticky;
+    top: 0;
+
+    /* overflow-y: hidden; */
+
+    margin: 0;
+    z-index: 3;
+    /* border: 1px solid blue; */
+    transition-duration: 200ms;
+    /* border: 1px solid red; */
+
+    width: 100%;
+}
+
+/* Navbar for other pages. */
+.navbar-other {
+    background-color: var(--opaque-black)
+}
+
+/* Navbar utilities */
+.navbar-bg {
+    /* background-color: var(--color-second-dark); */
+    background-color: var(--opaque-black); 
+}
+
+.navbar-fixed {
+    position: fixed;
+    /* top: 0; */
 }
 
 .logo {
@@ -189,8 +367,74 @@ header {
     
 }
 
-.btn-toggle { 
+#btn-toggle-nav { 
     color: white;
+}
+
+/* * TOGGLE NAV MENU */
+#nav-menu {
+    /* height: 0; */
+    /* overflow-y: hidden; */
+    /* overflow: hidden; */
+    width: 100%;
+    opacity: 0;
+
+    pointer-events: none;
+    
+    position: absolute;
+    /* top: 500px; */
+    /* margin-top: 50px; */
+    /* z-index: 1; */
+    background-color: var(--opaque-black);
+
+    /* transition: 275ms; */
+
+    /* transition: top 200ms ease; */
+    transition: opacity 200ms ease;
+}
+
+#nav-menu-links {
+    /* margin-top: -100%; */
+    /* border: 1px solid blue; */
+    padding-left: 0;
+}
+
+.nav-menu-link {
+    /* width: fit-content; */
+    /* border-bottom: 1px solid white; */
+    padding: .5rem 0;
+    /* border: 1px solid green; */
+    transition-duration: 200ms;
+
+    /* transition: width 200ms; */
+}
+
+.nav-menu-link:not(:last-child) {
+    margin-bottom: .5rem;
+    cursor: pointer; 
+}
+
+.nav-menu-link:hover, .nav-menu-link:focus {
+    /* width: 100%; */
+    color: var(--color-main-light);
+}
+
+.nav-menu-link:hover .line, .nav-menu-link:focus .line {
+    width: 100%;
+}
+
+.line {
+    background: white;
+    height: 2px;
+    width: 20px;
+    transition-duration: 300ms;
+}
+
+.nav-menu-open {
+    /* opacity: 1; */
+    /* top: 200px; */
+    /* height: 500px; */
+    /* transition: 200 200ms ease; */
 }
 
 /* * Navbar center (Searchbar) */
@@ -238,17 +482,16 @@ header {
 }
 
 
-
 /* * Hero Display text */
 
 /* TODO: Make sure the  */
 .display {
-    margin-bottom: 12px;
+    /* margin-bottom: 12px; */
 }
 
 .header-content { 
     /* max-width: 50%; */
-    margin-top: 20%;
+    margin-top: 4rem;
 }
 
 .header-content > p { 
@@ -342,11 +585,16 @@ header {
 * * Spotlight Section
 ****************/
 
-.section-spotlight { 
+/* General identifier for sections. */
+
+section {
     width: 100%;
+}
+
+.section-spotlight { 
+    /* width: 100%; */
     background-color: #8BC6EC;
     background-image: linear-gradient(135deg, #8BC6EC 0%, #393b6e 75%);
-
     /* overflow-y: auto; */
 }
 
@@ -359,8 +607,9 @@ header {
 }
 
 .spotlight-header {
-    /* color: var(--color-main) */
-    color: rgb(230, 230, 230);
+    color: white;
+    /* color: var(--color-main-light) */
+    /* color: rgb(230, 230, 230); */
 }
 
 .carousel {
@@ -409,21 +658,345 @@ header {
     box-shadow: none;
 }
 
+.details-spotlight .title {
+    /* color: white; */
+    color: var(--color-main)
+}
+
 .details-spotlight-desktop {
     display: none;
 }
 
 
 
+/**************
+* * Genres Section
+****************/
+
+.section-genre {
+    background-color: #9878E0;
+    background-image: linear-gradient(60deg, #9878E0 0%, #EFC1FF 75%);
+}
+
+.section-genre .section-title {
+    color: var(--color-second-dark)
+}
 
 
+.genre-tags-container {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* grid: repeat(7, 1fr), repeat(2, 1fr); */
+}
+
+.genre-tags-container .btn {
+    margin-bottom: .875rem;
+    width: 90%;
+}
+
+/*************************************/
+/* * ANIME PAGE */
+/*************************************/
+
+.header-anime {
+    min-height: 250px;
+    height: 50vh;
+    /* max-height: 43vh; */
+    /* background: lightgreen; */
+    position: relative;
+    background: var(--color-main-dark);
+    padding-bottom: 1rem;
+    max-height: 350px;
+}
+
+.navbar-anime {
+    /* background: rgba(0, 0, 0, 0.493); */
+}
+
+/* Header style for anime pages with no banner image */
+.header-anime[data-banner=""] {
+
+}
+
+/* Header style for all anime pages with a banner image */
+.header-anime:not([data-banner=""]) {
+    background-image: var(--banner-image);
+    background-size: cover;
+    background-position: top center;
+    /* Todo: Add the bottom shadow and blur to the background */
+}
+
+.header-anime:not([data-banner=""])::after {
+    content: " ";
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 30%;
+    /* TODO: gradient */
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.897) 20%, rgba(0, 0, 0, 0))
+    /* box-shadow: inset 0 40px 15px rgba(0, 0, 0, 0.7); */
+}
+
+.header-anime:not([data-banner=""])::before {
+    content: "";
+    /* backdrop-filter: blur(.1rem); */
+    /* filter: blur(30px); */
+    /* -webkit-filter: blur(10px); */
+    /* background: rgba(255, 255, 255, 0.308); */
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.header-anime-cover-title {
+    align-items: flex-end;
+    z-index: 1;
+}
+
+.anime-header-cover-image {
+    width: 160px;
+    margin-right: .6rem;
+    /* border: 1px solid black; */
+    /* height: auto; */
+}
+
+.anime-header-cover-image img {
+    height: auto;
+    /* border-radius: 12px; */
+}
+
+.header-anime-cover-title h3 {
+    margin-bottom: 0;
+}
+
+/* * Main page content */
+
+.main-section {
+    margin-bottom: 1.8rem;
+}
+
+.main-section:first-child {
+    padding-top: 1.8rem;
+}
+
+.main-section > p {
+    margin: 0;
+}
+
+.main-section-title {
+    padding-bottom: .5rem;
+    /* padding-top: .6rem; */
+    /* margin: 0; */
+    /* margin-bottom: 1rem; */
+    margin-top: 1rem; 
+    /* border: 1px solid black; */
+
+}
+
+.main-section .paragraph {
+    /* margin-top: 20px; */
+}
+
+.main-section-title:not(:first-child) {
+    /* margin-top: 0; */
+}
+
+.main-section hr {
+    margin: 20px 0;
+}
+
+/* * Characters section */
+.page-cards-container {
+    width: 100%;
+    overflow-x: auto;
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; */
+}
+
+/* *IMPORTANT NOTE ABOUT THE PAGE CARDS!
+
+* - The updated version of the cards are wrapped in an anchor tag.
+* - The anchor tag has the commented code of page-card: flex-shrink, max-width, and margin right.
+
+* - If anything goes wrong with the way the content looks: 
+*   - Remove the <a> from the cards in the HTML. 
+*   - Uncomment the page-card code: flex-shrink, max-width, and margin-right.
+*/
+
+.page-card {
+    /* flex-shrink: 0;
+    max-width: 100px;
+    margin-right: 15px; */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.page-card:not(:last-child) {
+    /* margin-right: .8rem; */
+}
 
 
+.page-card-image-container {
+    width: 100%;
+    flex-grow: 1;
+}
+
+.page-card-image-container > img {
+    /* width: 100%; */
+    /* height: 100%; */
+}
+
+.page-card-name {
+    /* width: 100%; */
+
+    /* display: -webkit-box; */
+    /* -webkit-line-clamp: 2; */
+    /* -webkit-box-orient: vertical;   */
+    /* overflow: hidden; */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.page-cards-container a {
+
+    display: block;
+
+    flex-shrink: 0;
+    max-width: 110px;
+    margin-right: 15px;
+}
+
+.page-cards-container a:hover { 
+    color: var(--color-main-sat);
+
+}
+
+/* * Reviews */
+
+.review-container {
+    background: #EEEEEE;
+    border-radius: 12px;
+    padding: 12px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    margin-bottom: 1rem;
+}
+
+.review-header {
+}
+
+.review-header-username {
+    align-items: center;
+    margin: 0 3px;
+}
+
+.review-header-username > * {
+    padding: 0 3px;
+}
+
+.review-header-user-avatar {
+    width: 35px;
+    height: 35px;
+    background-color: #D9D9D9;
+    border-radius: 50%;
+
+    background-image: var(--bg-image);
+    background-position: center;
+    background-size: cover;
+}
+
+.review-score-container {
+    border-top: 1px solid rgba(0, 0, 0, 0.596);
+}
+
+.review-body {
+    /* margin-bottom: 10px; */
+}
+
+/* * Review details modal */
+
+.modal-overlay {
+    position: fixed; 
+    z-index: 5;
+    background: rgba(0, 0, 0, 0.712);
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.modal-content-wrapper {
+    width: 100%;
+    height: 100%;
+    background: #EEEEEE;
+}
 
 
+/*************************************/
+/* * SEARCH PAGE */
+/*************************************/
+.search-cards-container {
+    /* display: flex; */
+    /* flex-wrap: wrap; */
 
+    /* padding: 3px; */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    /* justify-items: stretch; */
+    /* align-items: stretch; */
+    /* border: 1px solid green; */
+}
 
+.search-cards-container > * {
+    /* max-width: 50%; */
+}
 
+.search-cards-container > a {
+    display: block;
+
+    /* border: 2px solid red; */
+
+    /* width: 50%; */
+
+    /* margin: 3px; */
+    /* flex-shrink: 1; */
+    /* flex-grow: 1; */
+
+    /* flex-shrink: 0; */
+    /* max-width: 110px; */
+
+}
+
+.search-card {
+    /* border: 1px solid peru; */
+    display: flex;
+    flex-direction: column;
+}
+
+.search-card-image-container {
+    /* border: 2px solid pink; */
+    flex-grow: 1;
+    /* height: 100%; */
+    /* border-radius: 12px; */
+}
+
+.search-card-image-container img {
+    /* height: 100%; */
+    aspect-ratio: 1.5 / 2; 
+    border-radius: 6px;
+}
+
+.results-header {
+    margin-bottom: 1rem
+}
 
 /*************************************/
 /* * MEDIA QUERIES */
@@ -437,6 +1010,9 @@ header {
 @media screen and (min-width: 405px) {
     /* Let's change the grids on the home page to 2x3 */
 
+    .search-cards-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
 
 }
 
@@ -445,16 +1021,40 @@ header {
 /**************
 * * Small Tablets
 ****************/
+@media screen and (min-width: 595px) {
 
+    .search-cards-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
 
-
+}
 
 
 /************** 
 * * Large tablets and laptops
 ****************/
+@media screen and (min-width: 780px) {
+
+    .search-cards-container {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+}
+
 
 
 /************** 
 * * Desktop
 ****************/
+
+@media screen and (min-width: 1000px) {
+
+    .container {
+        width: 85%;
+    }
+
+    .search-cards-container {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+}

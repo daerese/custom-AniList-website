@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> head}}
+</head>
+<body>
+
+    {{#if queryData.currAnime}}
+
+
+        <div class="modal-overlay">
+
+            <div class="modal-content-wrapper">
+                
+            </div>
+
+        </div>
+
+        <header class="header-anime flex-column-space" data-banner="{{queryData.currAnime.bannerImage}}"
+                style="--banner-image: url({{queryData.currAnime.bannerImage}})">
+            <nav class="navbar navbar-other" style="flex-grow: 0; flex-shrink: 0;" id="navbar">
+
+                <div class="container flex-space">
+                    <div class="navbar-left">
+                        <button class="btn btn-icon" id="btn-toggle-nav">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+
+                        <p class="bold logo">Any<span>Anime</span></p>
+                    </div>
+
+                    <div class="navbar-center">
+                        {{!-- * Where the search bar will go --}}
+                        {{!-- * On mobile, this will appear on the left. --}}
+
+
+                    <form action="/search/anime" method="GET" class="searchbar-container">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" id="searchBar"
+                            placeholder="Search Anime" name="search">
+                        <button type="submit" style="display: none;"></button>
+                    </form>
+
+                    </div>
+
+                    <div class="navbar-right">
+                        
+                        <ul>
+                            <li>Home</li>
+                            <li>Anime</li>
+                            <li>Characters</li>
+                        </ul>
+
+                    </div>
+                </div>
+
+                <div id="nav-menu">
+
+                    <div class="container">
+                        <ul id="nav-menu-links">
+                            <li class="bold nav-menu-link"> 
+                                <a href="/">Home</a>
+                                <div class="line"></div>
+                            </li>
+                            <li class="bold nav-menu-link">
+                                <div class="nav-menu-link-inner">
+                                    <a href="">Anime</a>
+                                    <div class="line"></div>
+                                </div>
+                            </li>
+                            <li class="bold nav-menu-link">
+                                <a href="">Manga</a>
+                                <div class="line"></div>
+                            </li>
+                            <li class="bold nav-menu-link">
+                                <a href="">Characters</a>
+                                <div class="line"></div>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </nav>
+
+            <div class="container flex-default header-anime-cover-title" style="flex-grow: 0; flex-shrink: 0;">
+
+                <div class="anime-header-cover-image">
+                    <img src="{{queryData.currAnime.coverImage.large}}" alt="cover-image">
+                </div>
+
+                {{#if queryData.currAnime.title.english}}
+                    <h3>{{queryData.currAnime.title.english}}</h3>
+                    {{else}}
+                    <h3>{{queryData.currAnime.title.romaji}}</h3>
+                {{/if}}
+
+            </div>
+
+        </header>
+
+        <div class="container">
+            
+            <main>
+
+                <div class="main-section main-section-about">
+                    <p class="bold main-section-title">About</p>
+                    <p class="subtext paragraph">{{queryData.currAnime.description}}</p>
+                </div>
+
+                <div class="main-section main-section-genres">
+                    <p class="bold main-section-title">Genres</p>
+                    {{#if queryData.currAnime.genres}}
+                        {{#each queryData.currAnime.genres}}
+                            <button class="btn btn-genre-details-page"><a href="/search/genres/this"></a>{{this}}</button>
+                        {{/each}}  
+                    {{/if}}
+                    <hr>
+                </div>
+
+
+
+                <div class="main-section main-section-characters">
+                    <p class="bold main-section-title">Characters</p>
+
+                    <div class="page-cards-container">
+                        {{#if queryData.currAnime.characters}}
+                            {{#each queryData.currAnime.characters.edges }}
+
+                            <a href="http://localhost:3001/characters/{{this.id}}">
+                                <div class="card page-card character-card" data-character-id="{{this.id}}">
+                                    <div class="page-card-image-container">
+                                        <img src="{{this.node.image.large}}" alt="character-image">
+                                    </div>
+
+                                    <p class="subtext-small bold page-card-name">
+                                        {{#if this.node.name.userPreferred}}
+                                            {{this.node.name.userPreferred}}
+
+                                            {{else}}
+                                        {{/if}}
+                                    </p>
+                                </div>
+                            </a>                                
+                            {{/each}}
+                        {{/if}}
+                    </div>
+                </div>
+
+                <div class="main-section">
+                    <p class="bold main-section-title">Similar to this</p>
+
+                    <div class="page-cards-container">
+                        {{#if queryData.currAnime.recommendations}}
+                            {{#each queryData.currAnime.recommendations.edges }}
+                
+
+                            <a href="http://localhost:3001/anime/{{this.node.mediaRecommendation.id}}">
+                                <div class="card page-card rec-card" data-media-id="{{this.node.id}}">
+                                    
+                                    <div class="page-card-image-container">
+                                        <img src="{{this.node.mediaRecommendation.coverImage.large}}" alt="character-image">
+                                    </div>
+                                    
+
+                                    <p class="subtext-small bold page-card-name">
+                                        {{#if this.node.mediaRecommendation.title.userPreferred}}
+                                            {{this.node.mediaRecommendation.title.userPreferred}}
+                                        {{/if}}
+
+                                        
+                                    </p>
+                                </div>
+                            </a>
+                            {{/each}}
+                        {{/if}}
+                    </div>
+
+                <hr>
+                </div>
+
+                <div class="main-section">
+
+                    <p class="bold main-section-title">Top Reviews</p>
+
+                    {{#if queryData.currAnime.reviews.edges}}
+                        
+                        {{#each queryData.currAnime.reviews.edges}}
+                            
+                            <div class="review-container">
+                                <div class="review-header flex">
+
+                                    {{!-- TODO: Default BG Color. Circle Container --}}
+                                    {{!-- TODO: insert avatar in style --}}
+                                    <div class="review-header-user-avatar" style="--bg-image: url({{this.node.user.avatar.large}})">
+                                    </div>
+
+                                    <div class="review-header-username flex">
+                                        <p class="bold light-text subtext-small">{{this.node.user.name}}</p>
+                                        <p class="black-dot">&#x2022;</p>
+                                        <span class="light-text subtext-small">{{this.node.createdAt}}</span>
+
+                                    </div>
+                                </div>
+                                <div class="review-body">
+                                    <p class="light-text subtext review">{{this.node.summary}}</p>
+
+                                    {{!-- TODO: Insert review id. --}}
+                                    <form action="/review/insert-review-id" method="POST">
+                                        
+                                        <button class="btn-text btn-text-open-review light-text" type="submit">
+                                            View full review<span> <i class="fa-solid fa-angles-right"></i> </span>
+                                        </button>
+                                    </form>
+                                </div>
+
+                                {{!-- Todo: Border on the score instead of an <hr> --}}
+                                <div class="review-score-container">
+                                    <p class="bold subtext-small light-text">
+                                        User Rating:<span style="color: #269b85; margin-left: 3px">{{this.node.score}}%</span>
+                                        </p>
+                                </div>
+                            </div>
+
+                        {{/each}}
+
+                        {{else}}
+                        <p class="light-text subtext"style="font-style: italic">No reviews for this yet... </p>
+
+                    {{/if}}
+
+                </div>
+
+
+            </main>
+
+            <aside class="trailer-section">
+
+            </aside>
+
+        </div>
+        
+    {{/if}}
+
+
+
+
+
+<script>
+
+    
+$(document).ready( () => {
+
+    $('#btn-toggle-nav').click( (event) => {
+            toggleNav(event)
+    })
+
+    function toggleNav(event) {
+
+        if ($('#nav-menu').hasClass('nav-menu-open')) {
+
+            console.log('Menu has it. Removing it...')
+            //$('#nav-menu').css('height', 'auto')
+            $('#nav-menu').removeClass('nav-menu-open')
+
+            $('#nav-menu').css({'opacity': 0,
+                                'pointer-events': 'none'})
+
+            if(!($(window).scrollTop())) {
+                $('#navbar').removeClass('navbar-bg')
+            }
+
+            // TODO: Turn the button into an x. 
+
+        } else {
+
+            console.log('Menu does not have it, adding it.')
+            $('#nav-menu').addClass('nav-menu-open')
+
+            $('#nav-menu').css({'opacity': 1,
+                                'pointer-events': 'auto'});
+
+
+            $('#navbar').addClass('navbar-bg')
+            
+        }
+
+    }
+
+    function closeNav() {
+        $('#nav-menu').css('height', 0)
+    }
+})
+
+</script>
+</body>
+</html>

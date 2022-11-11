@@ -1,0 +1,33 @@
+Review Container for Anime page:
+    <div class="review-container">
+        <div class="review-header flex">
+
+            {{!-- TODO: Default BG Color. Circle Container --}}
+            {{!-- TODO: insert avatar in style --}}
+            <div class="review-header-user-avatar" style="--bg-image: url()">
+            </div>
+
+            <div class="review-header-username flex">
+                <p class="bold light-text subtext-small">username00</p>
+                <p class="black-dot">&#x2022;</p>
+                <span class="light-text subtext-small">9/10/2022</span>
+
+            </div>
+        </div>
+        <div class="review-body">
+            <p class="light-text subtext review">Meh. It was cool I guess. Could have been better. </p>
+
+            {{!-- TODO: Insert review id. --}}
+            <form action="/review/insert-review-id" method="POST">
+                
+                <button class="btn-text btn-text-open-review light-text" type="submit">
+                    View full review<span> <i class="fa-solid fa-angles-right"></i> </span>
+                </button>
+            </form>
+        </div>
+
+        {{!-- Todo: Border on the score instead of an <hr> --}}
+        <div class="review-score-container">
+            <p class="bold subtext-small light-text">User Rating:<span style="color: #2ABDA3; margin-left: 3px">100%</span></p>
+        </div>
+    </div>
