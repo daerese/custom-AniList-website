@@ -45,10 +45,19 @@
 
                     <div class="navbar-right">
                         
-                        <ul>
-                            <li>Home</li>
-                            <li>Anime</li>
-                            <li>Characters</li>
+                        <ul class="nav-links">
+                            <li class="nav-link">
+                                <a href="">Home</a>
+                            </li>
+                            <li class="nav-link">
+                                <a href="">Anime</a>
+                            </li>
+                            <li class="nav-link">
+                                <a href="">Manga</a>
+                            </li>
+                            <li class="nav-link">
+                                <a href="">Characters</a>
+                            </li>
                         </ul>
 
                     </div>
@@ -59,7 +68,7 @@
                     <div class="container">
                         <ul id="nav-menu-links">
                             <li class="bold nav-menu-link"> 
-                                <a href="/">Home</a>
+                                <a href="http://localhost:3001">Home</a>
                                 <div class="line"></div>
                             </li>
                             <li class="bold nav-menu-link">
@@ -104,7 +113,7 @@
 
                 <div class="main-section main-section-about">
                     <p class="bold main-section-title">About</p>
-                    <p class="subtext paragraph">{{queryData.currAnime.description}}</p>
+                    <p class="subtext paragraph">{{{queryData.currAnime.description}}}</p>
                 </div>
 
                 <div class="main-section main-section-genres">
@@ -129,7 +138,7 @@
                             <a href="http://localhost:3001/characters/{{this.id}}">
                                 <div class="card page-card character-card" data-character-id="{{this.id}}">
                                     <div class="page-card-image-container">
-                                        <img src="{{this.node.image.large}}" alt="character-image">
+                                        <img class="card-img" src="{{this.node.image.large}}" alt="character-image">
                                     </div>
 
                                     <p class="subtext-small bold page-card-name">
@@ -158,7 +167,7 @@
                                 <div class="card page-card rec-card" data-media-id="{{this.node.id}}">
                                     
                                     <div class="page-card-image-container">
-                                        <img src="{{this.node.mediaRecommendation.coverImage.large}}" alt="character-image">
+                                        <img class="card-img" src="{{this.node.mediaRecommendation.coverImage.large}}" alt="character-image">
                                     </div>
                                     
 

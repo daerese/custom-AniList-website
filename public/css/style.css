@@ -67,6 +67,8 @@ li {
 
 img {
     max-width: 100%;
+    /* * Images always work better when using display: block. 
+       * ALWAYS use display block.  */
     display: block;
     object-fit: cover;
     /* height: auto;  */
@@ -82,17 +84,54 @@ a:visited {
     color: inherit;
 }
 
+/* ****************** 
+* Universal Elements --> Grid cards
+* ********************/
+
+.card * {
+    transition-duration: 200ms !important;
+}
+
+.card-link {
+    /* transition-duration: 200ms !important; */
+    display: block;
+    /* border: 1px solid red; */
+}
+
 .card-link img {
-    transition-duration: 150ms;
+    /* transition-duration: 150ms; */
     box-shadow: var(--box-shadow);
 }
 
-.card-link:hover {
+.card-link:hover p {
     color: var(--color-main-sat);
 }
 
 .card-link:hover img {
     box-shadow: var(--box-shadow-hover)
+}
+
+.card-img-container {
+    /* flex-grow: 1;
+    width: 100%; */
+}
+
+.card-img {
+    aspect-ratio: 1.5 / 2.2 !important;
+    height: 100%;
+    border-radius: 6px;
+}
+
+.grid-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.grid-card {
+    /* border: 1px solid green; */
+    display: flex;
+    flex-direction: column;
 }
 
 /************** 
@@ -274,8 +313,6 @@ figcaption {
 }
 
 
-
-
 /*************************************/
 /* * MOBILE STYLES */
 /*************************************/
@@ -338,6 +375,18 @@ header {
     /* border: 1px solid red; */
 
     width: 100%;
+}
+
+/* * The content inside the navbar */
+.navbar-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 20px;
+}
+
+.navbar-container > * {
+    /* border: 1px solid green; */
 }
 
 /* Navbar for other pages. */
@@ -414,12 +463,14 @@ header {
     cursor: pointer; 
 }
 
-.nav-menu-link:hover, .nav-menu-link:focus {
+.nav-menu-link:hover, .nav-menu-link:focus,
+.nav-link:hover, .nav-link:focus {
     /* width: 100%; */
     color: var(--color-main-light);
 }
 
-.nav-menu-link:hover .line, .nav-menu-link:focus .line {
+.nav-menu-link:hover .line, .nav-menu-link:focus .line,
+.nav-link:hover .line, .nav-link:focus .line {
     width: 100%;
 }
 
@@ -440,7 +491,8 @@ header {
 /* * Navbar center (Searchbar) */
 
 .navbar-center { 
-    max-width: 50%;
+    /* max-width: 45%; */
+    /* flex-grow: 1; */
 }
 
 .searchbar-container { 
@@ -481,6 +533,44 @@ header {
     display: none;
 }
 
+.nav-links {
+    display: flex;
+    padding: 0;
+    /* border: 2px solid red; */
+}
+
+.nav-link:not(:last-child) {
+    margin-right: .5rem;
+}
+
+@media screen and (min-width: 727px) {
+
+    .navbar-container {
+        grid-template-columns: 1fr 2fr 1fr;
+        gap: 10px
+    }
+
+    .navbar-right {
+        /* * Where the nav links are */
+        display: block;
+    }
+
+    .navbar-right > * {
+        /* border: 1px solid red; */
+    }
+    
+    #btn-toggle-nav {
+        /* *Button that toggles the nav menu */
+        display: none;
+    }
+}
+
+@media screen and (max-width: 350) {
+    #btn-toggle-nav {
+        padding: .8rem;
+    }
+}
+
 
 /* * Hero Display text */
 
@@ -506,16 +596,14 @@ header {
     position: relative;
     display: grid;
     gap: 1.3rem 10px;
-    grid: repeat(2, 1fr) / repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
 
-    justify-items: stretch;
-    align-items: stretch;
-}
+    align-items: center;
 
-.card {
-    /* text-align: left; */
-    /* border: 1px solid blue; */
-    transition-duration: 300ms;
+    justify-items: center;
+
+    /* justify-items: stretch; */
+    /* align-items: stretch; */
 }
 
 /* .card-image-container:hover::before {
@@ -547,7 +635,7 @@ header {
 }
 
 .title {
-    transition-duration: 300ms;
+    /* transition-duration: 300ms; */
 }
 
 .card-image-container {
@@ -584,6 +672,12 @@ header {
 /**************
 * * Spotlight Section
 ****************/
+
+/* * MODIFIED CENTER CAROUSEL CONTENT * */
+/* * note: THe structure of the overall container will remain the same in order to allow scrolling.
+   * Change will only be applied to the content in the center of each carousel item. */
+
+
 
 /* General identifier for sections. */
 
@@ -811,7 +905,7 @@ section {
     width: 100%;
     overflow-x: auto;
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     /* align-items: center; */
 }
 
@@ -848,6 +942,7 @@ section {
 .page-card-image-container > img {
     /* width: 100%; */
     /* height: 100%; */
+    /* aspect-ratio: 1.5 / 2.2; */
 }
 
 .page-card-name {
@@ -960,7 +1055,7 @@ section {
 }
 
 .search-cards-container > a {
-    display: block;
+    /* display: block; */
 
     /* border: 2px solid red; */
 
@@ -1010,10 +1105,9 @@ section {
 @media screen and (min-width: 405px) {
     /* Let's change the grids on the home page to 2x3 */
 
-    .search-cards-container {
+    .search-cards-container, .grid-cards {
         grid-template-columns: repeat(3, 1fr);
     }
-
 }
 
 
@@ -1027,6 +1121,8 @@ section {
         grid-template-columns: repeat(4, 1fr);
     }
 
+
+
 }
 
 
@@ -1035,8 +1131,13 @@ section {
 ****************/
 @media screen and (min-width: 780px) {
 
-    .search-cards-container {
+    .search-cards-container, .grid-cards {
         grid-template-columns: repeat(5, 1fr);
+    }
+
+    .grid-cards-home .card-link:last-child {
+        /* border: 1px solid green; */
+        display: none;
     }
 
 }
@@ -1050,11 +1151,20 @@ section {
 @media screen and (min-width: 1000px) {
 
     .container {
-        width: 85%;
+        width: 82%;
     }
 
-    .search-cards-container {
+    .search-cards-container, .grid-cards {
         grid-template-columns: repeat(6, 1fr);
+    }
+
+    .grid-cards-home .card-link:last-child {
+        /* border: 1px solid green; */
+        display: block;
+    }
+
+    .grid-cards {
+        gap: 1.2rem; 
     }
 
 }

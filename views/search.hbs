@@ -47,7 +47,7 @@
                 <div class="container">
                     <ul id="nav-menu-links">
                         <li class="bold nav-menu-link"> 
-                            <a href="/">Home</a>
+                            <a href="http://localhost:3001">Home</a>
                             <div class="line"></div>
                         </li>
                         <li class="bold nav-menu-link">
@@ -83,8 +83,6 @@
 
         <div class="search-cards-container">
 
-
-
             {{#if queryData.results}}
 
             {{#each queryData.results}}
@@ -109,7 +107,7 @@
                     <div class="card search-card">
 
                         <div class="search-card-image-container">
-                            <img src="{{this.coverImage.extraLarge}}" alt="">
+                            <img src="{{this.coverImage.extraLarge}}" class="card-img" alt="">
                         </div>
 
                         <p class="subtext bold">

@@ -46,6 +46,7 @@ const queries = {
                 popularity
                 coverImage {
                   large
+                  extraLarge
                 }
                 title {
                   romaji
@@ -197,7 +198,7 @@ const queries = {
               hasNextPage
               perPage
             }
-            media (type: ANIME, search: $search) {
+            media (type: ANIME, search: $search, isAdult: false) {
               id
               season
               title {

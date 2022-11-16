@@ -29,7 +29,7 @@
 
         <nav class="navbar" id="navbar">
 
-            <div class="container flex-space">
+            <div class="container navbar-container">
                 <div class="navbar-left">
                     <button class="btn btn-icon" id="btn-toggle-nav">
                         <i class="fa-solid fa-bars"></i>
@@ -53,12 +53,21 @@
                 </div>
 
                 <div class="navbar-right">
-                    
-                    <ul>
-                        <li>Home</li>
-                        <li>Anime</li>
-                        <li>Characters</li>
-                    </ul>
+                        
+                        <ul class="nav-links">
+                            <li class="nav-link">
+                                <a href="">Home</a>
+                            </li>
+                            <li class="nav-link">
+                                <a href="">Anime</a>
+                            </li>
+                            <li class="nav-link">
+                                <a href="">Manga</a>
+                            </li>
+                            <li class="nav-link">
+                                <a href="">Characters</a>
+                            </li>
+                        </ul>
 
                 </div>
             </div>
@@ -68,7 +77,7 @@
                 <div class="container">
                     <ul id="nav-menu-links">
                         <li class="bold nav-menu-link"> 
-                            <a href="/">Home</a>
+                            <a href="http://localhost:3001">Home</a>
                             <div class="line"></div>
                         </li>
                         <li class="bold nav-menu-link">
@@ -105,36 +114,40 @@
 
     </header>
 
-    <section class="section-list">
+    {{!-- TODO: Add the new grid / aspect ratio settings to the cards. --}}
+
+    {{!-- <section class="section-list"> --}}
+    <section>
 
         <div class="container">
 
             <h3 class="section-title"> Current Season {{sectionTitle}} </h3>
             
-            <div class="list-cards">
+            <div class="grid-cards grid-cards-home">
 
                 {{#if queryData.seasonFilter}}
                     
                     {{#each queryData.seasonFilter}}
-                        
-                        <div class="card anime-card" data-anime-id="{{this.id}}">
-                            
-                            
-                            <div class="card-image-container">
-                                <a href="http://localhost:3001/anime/{{this.id}}">
-                                    <img src="{{this.coverImage.large}}" alt="cover-image" class="card-image">
-                                </a>
+
+                        <a class="card-link" href="http://localhost:3001/anime/{{this.id}}">
+                            <div class="card grid-card" data-anime-id="{{this.id}}">
+                                
+                                
+                                <div class="card-img-container">
+                                    <img src="{{this.coverImage.large}}" alt="cover-image" class="card-img">
+                                </div>
+                                
+                                <div class="card-title-container">
+                                    {{!-- TODO: If the title doesn't include english, display romaji --}}
+                                    {{#if this.title.english}}
+                                        <p class="bold light-text caption">{{this.title.english}}</p>
+                                        {{else}}
+                                        <p class="bold light-text caption">{{this.title.romaji}}</p>
+                                    {{/if}}
+                                </div>
                             </div>
-                            
-                            <div class="card-caption-container">
-                                {{!-- TODO: If the title doesn't include english, display romaji --}}
-                                {{#if this.title.english}}
-                                    <p class="title bold light-text caption">{{this.title.english}}</p>
-                                    {{else}}
-                                    <p class="title bold light-text caption">{{this.title.romaji}}</p>
-                                {{/if}}
-                            </div>
-                        </div>
+                        </a>
+                    
                         
                     {{/each}}
 
@@ -147,8 +160,78 @@
 
         </div>
 
+    </section>
+
+
+    <section class="section-spotlight">
+
+        
+        <div class="container spotlight-container">
+
+            <h2 class="spotlight-header">Top 10 Most Popular</h2>
+
+            <div class="carousel flex">
+
+                <div class="carousel-left">
+                    <button class="btn btn-icon" id="btn-carousel-left">
+                        <i class="fa-solid fa-angles-left"></i>
+                    </button>
+                </div>
+
+                {{!-- TODO: Dynamically insert content into the carousel --}}
+
+                <div class="carousel-content flex">
+                    {{!-- ? this is where each card will go.
+                          TODO: Apply flex to this container and Overflow-x --}}
+
+                    {{#if queryData.popularityFilter}}
+                        
+                        {{#each queryData.popularityFilter}}
+
+                            <a href="http://localhost:3001/anime/{{this.id}}" class="card-link card-spotlight" data-anime-id="{{this.id}}">
+                            
+                                <div class="card ">
+                                    <div class="card-img-container">
+                                        <img src="{{this.coverImage.extraLarge}}" alt="cover-image" class="card-img">
+                                    </div>
+
+                                    <div class="card-title-container">
+                                        {{!-- TODO: If the title doesn't include english, display romaji --}}
+                                        {{#if this.title.english}}
+                                            <p class="bold light-text caption">{{this.title.english}}</p>
+                                            {{else}}
+                                            <p class="bold light-text caption">{{this.title.romaji}}</p>
+                                        {{/if}}
+                                        <p class="rating-text bold">{{this.averageScore}}% Average Rating</p>
+                                    </div>
+                                    
+                                </div>
+
+                            </a>
+
+                        {{/each}}
+
+                        {{else}}
+                        <p class="bold">None were found!</p>
+
+
+                    {{/if}}
+
+                </div>
+
+
+                <div class="carousel-right">
+                    <button class="btn btn-icon" id="btn-carousel-right">
+                        <i class="fa-solid fa-angles-right"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
 
     </section>
+
 
     <section class="section-spotlight">
 
@@ -178,7 +261,7 @@
                             <div class="card card-spotlight" data-anime-id="{{this.id}}">
 
                                 <div class="card-image-spotlight-container">
-                                    <img src={{this.coverImage.large}} class="card-image card-image-spotlight" alt="">
+                                    <img src={{this.coverImage.large}} class="card-image card-img card-image-spotlight" alt="">
                                 </div>
 
                                 <div class="card-details-spotlight-container">
@@ -205,8 +288,6 @@
 
 
                     {{/if}}
-                    
-
 
                 </div>
 
@@ -216,10 +297,6 @@
                         <i class="fa-solid fa-angles-right"></i>
                     </button>
                 </div>
-
-
-
-
             </div>
 
         </div>
@@ -233,30 +310,30 @@
 
             <h3 class="list-title"> Trending Anime {{sectionTitle}} </h3>
             
-            <div class="list-cards">
+            <div class="grid-cards grid-cards-home">
 
                 {{#if queryData.trendingFilter}}
                     
                     {{#each queryData.trendingFilter}}
                         
-                        <div class="card anime-card" data-anime-id="{{this.id}}">
-                            
-                            
-                            <div class="card-image-container">
-                                <a href="http://localhost:3001/anime/{{this.id}}">
-                                    <img src="{{this.coverImage.large}}" alt="cover-image" class="card-image">                                
-                                </a>
+                        <a class="card-link" href="http://localhost:3001/anime/{{this.id}}">
+                            <div class="card grid-card" data-anime-id="{{this.id}}">
+                                
+                                
+                                <div class="card-img-container">
+                                    <img src="{{this.coverImage.large}}" alt="cover-image" class="card-img">
+                                </div>
+                                
+                                <div class="card-title-container">
+                                    {{!-- TODO: If the title doesn't include english, display romaji --}}
+                                    {{#if this.title.english}}
+                                        <p class="bold light-text caption">{{this.title.english}}</p>
+                                        {{else}}
+                                        <p class="bold light-text caption">{{this.title.romaji}}</p>
+                                    {{/if}}
+                                </div>
                             </div>
-                            
-                            <div class="card-caption-container">
-                                {{!-- TODO: If the title doesn't include english, display romaji --}}
-                                {{#if this.title.english}}
-                                    <p class="title bold light-text caption">{{this.title.english}}</p>
-                                    {{else}}
-                                    <p class="title bold light-text caption">{{this.title.romaji}}</p>
-                                {{/if}}
-                            </div>
-                        </div>
+                        </a>
                         
                     {{/each}}
 
