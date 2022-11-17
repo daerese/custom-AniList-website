@@ -118,7 +118,7 @@ a:visited {
 
 .card-img {
     aspect-ratio: 1.5 / 2.2 !important;
-    height: 100%;
+    /* height: 100%; */
     border-radius: 6px;
 }
 
@@ -546,8 +546,8 @@ header {
 @media screen and (min-width: 727px) {
 
     .navbar-container {
-        grid-template-columns: 1fr 2fr 1fr;
-        gap: 10px
+        grid-template-columns: .8fr 2fr 1fr;
+        gap: 25px;
     }
 
     .navbar-right {
@@ -676,8 +676,67 @@ header {
 /* * MODIFIED CENTER CAROUSEL CONTENT * */
 /* * note: THe structure of the overall container will remain the same in order to allow scrolling.
    * Change will only be applied to the content in the center of each carousel item. */
+.carousel-item {
+    width: 100%;
 
+    flex-shrink: 0;
 
+    scroll-snap-align: center;
+    margin-right: 50px;
+
+    display: grid;
+    color: white;
+
+    align-self: flex-start;
+}
+
+.card-details-container {
+    display: none;
+    text-align: left;
+}
+
+.card-details-container-header {
+    display: flex;
+    align-items: center;
+}
+
+/* .card-banner-container {
+    display: none;
+    border: 1px solid red;
+    height: 125px;
+    overflow-y: hidden;
+
+    background-image: var(--bg-image);
+    background-position: center;
+    background-size: cover;
+
+} */
+
+/* TODO: Find a way to make the carousel item look good, change it. */
+@media screen and (min-width: 445px) {
+
+}
+
+@media screen and (min-width: 850px) {
+    .carousel-item {
+        /* grid-template-rows: ; */
+        /* display: grid; */
+        grid-template-columns: 1fr 3fr; 
+        gap: 15px;
+    }
+
+    .carousel-item .card-link {
+        /* display: block; */
+    }
+
+    .carousel-item .card-title-container {
+        display: none;
+    }
+
+    .card-details-container {
+        display: block;
+    }
+}
 
 /* General identifier for sections. */
 
@@ -794,8 +853,8 @@ section {
 /*************************************/
 
 .header-anime {
-    min-height: 250px;
-    height: 50vh;
+    min-height: 325px;
+    max-height: 50vh;
     /* max-height: 43vh; */
     /* background: lightgreen; */
     position: relative;
@@ -849,14 +908,14 @@ section {
 }
 
 .anime-header-cover-image {
-    width: 160px;
+    max-width: 160px;
     margin-right: .6rem;
     /* border: 1px solid black; */
     /* height: auto; */
 }
 
 .anime-header-cover-image img {
-    height: auto;
+    /* height: auto; */
     /* border-radius: 12px; */
 }
 

@@ -48,6 +48,7 @@ const queries = {
                   large
                   extraLarge
                 }
+                bannerImage
                 title {
                   romaji
                   native

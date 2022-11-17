@@ -187,100 +187,42 @@
                     {{#if queryData.popularityFilter}}
                         
                         {{#each queryData.popularityFilter}}
+                            <div class="carousel-item">
+                                <a href="http://localhost:3001/anime/{{this.id}}" class="card-link" data-anime-id="{{this.id}}">
+                                        
+                                        {{!-- * Elements displayed on mobile --}}
+                                        <div class="card-img-container">
+                                            <img src="{{this.coverImage.extraLarge}}" alt="cover-image" class="card-img">
+                                        </div>
 
-                            <a href="http://localhost:3001/anime/{{this.id}}" class="card-link card-spotlight" data-anime-id="{{this.id}}">
-                            
-                                <div class="card ">
-                                    <div class="card-img-container">
-                                        <img src="{{this.coverImage.extraLarge}}" alt="cover-image" class="card-img">
+                                        <div class="card-title-container">
+                                            {{!-- TODO: If the title doesn't include english, display romaji --}}
+                                            {{#if this.title.english}}
+                                                <p class="bold light-text caption">{{this.title.english}}</p>
+                                                {{else}}
+                                                <p class="bold light-text caption">{{this.title.romaji}}</p>
+                                            {{/if}}
+                                            <p class="rating-text bold subtext">{{this.averageScore}}% Average Rating</p>
+                                        </div>
+                                </a>
+                                {{!-- *Elements displayed on tablet on larger --}}
+                                <div class="card-details-container">
+
+                                    <div class="card-details-container-header">
+                                        <h3>
+                                            {{#if this.title.english}}
+                                                {{this.title.english}}
+
+                                                {{else}}
+                                                {{this.title.romaji}}
+                                            {{/if}}
+                                        </h3>
+                                        <p class="black-dot">&#x2022;</p>
+                                        <p class="rating-text bold subtext">{{this.averageScore}}% Average Rating</p>
                                     </div>
-
-                                    <div class="card-title-container">
-                                        {{!-- TODO: If the title doesn't include english, display romaji --}}
-                                        {{#if this.title.english}}
-                                            <p class="bold light-text caption">{{this.title.english}}</p>
-                                            {{else}}
-                                            <p class="bold light-text caption">{{this.title.romaji}}</p>
-                                        {{/if}}
-                                        <p class="rating-text bold">{{this.averageScore}}% Average Rating</p>
-                                    </div>
-                                    
-                                </div>
-
-                            </a>
-
-                        {{/each}}
-
-                        {{else}}
-                        <p class="bold">None were found!</p>
-
-
-                    {{/if}}
-
-                </div>
-
-
-                <div class="carousel-right">
-                    <button class="btn btn-icon" id="btn-carousel-right">
-                        <i class="fa-solid fa-angles-right"></i>
-                    </button>
-                </div>
-            </div>
-
-        </div>
-
-
-    </section>
-
-
-    <section class="section-spotlight">
-
-        
-        <div class="container spotlight-container">
-
-            <h2 class="spotlight-header">Top 10 Most Popular</h2>
-
-            <div class="carousel flex">
-
-                <div class="carousel-left">
-                    <button class="btn btn-icon" id="btn-carousel-left">
-                        <i class="fa-solid fa-angles-left"></i>
-                    </button>
-                </div>
-
-                {{!-- TODO: Dynamically insert content into the carousel --}}
-
-                <div class="carousel-content flex">
-                    {{!-- ? this is where each card will go.
-                          TODO: Apply flex to this container and Overflow-x --}}
-
-                    {{#if queryData.popularityFilter}}
-                        
-                        {{#each queryData.popularityFilter}}
-                            
-                            <div class="card card-spotlight" data-anime-id="{{this.id}}">
-
-                                <div class="card-image-spotlight-container">
-                                    <img src={{this.coverImage.large}} class="card-image card-img card-image-spotlight" alt="">
-                                </div>
-
-                                <div class="card-details-spotlight-container">
-                                    
-                                    <div class="details-spotlight details-spotlight-mobile">
-                                        {{!-- ? This element will appear for mobile screens. --}}
-                                        <p class="title bold">{{this.title.english}}</p>
-                                        <p class="rating-text bold">{{this.averageScore}}% Average Rating</p>
-                                    </div>
-
-                                    <div class="details-spotlight details-spotlight-desktop">
-                                        {{!-- TODO: Add content for larger screen sizes. --}}
-
-                                    </div>
-
-
+                                    <p class="">{{{this.description}}}</p>
                                 </div>
                             </div>
-
                         {{/each}}
 
                         {{else}}
@@ -303,6 +245,8 @@
 
 
     </section>
+
+
 
     <section class="section-list">
 
