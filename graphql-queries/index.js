@@ -137,6 +137,7 @@ const queries = {
             edges {
               node {
                 id
+                mediaId
                 createdAt
                 summary
                 rating
@@ -185,6 +186,27 @@ const queries = {
       }
     `,
     general: {
+      review: `
+        query review ($id: Int){
+          Review (id: $id) {
+            createdAt
+            summary
+            rating
+            ratingAmount
+            score
+            user {
+              id
+              name
+              avatar {
+                large
+                medium
+              }
+            }
+            body (asHtml: true)
+            siteUrl
+          }
+        }
+      `,
       allGenreTags: `{
         GenreCollection
       }

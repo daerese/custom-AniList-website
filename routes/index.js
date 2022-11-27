@@ -28,6 +28,20 @@ const url = 'https://graphql.anilist.co';
 //     })
 // }
 
+
+// * Utility functions
+const getReviewDate = (unixTime) => {
+    
+    // Convert to milliseconds. The JS Date object can then convert milliseconds into a date.
+    // * UnixTime is specified as the amount of seconds that passed since the beginning 
+    // * of unix epochf (January 1st, 1970)
+    const milliseconds = unixTime * 1000
+
+    const reviewDate = (new Date(milliseconds)).toLocaleString()
+
+    return reviewDate.split(',')[0]
+}
+
 const getOptions = (query, variables=null) => {
     
     const body = {query: query}
@@ -72,7 +86,7 @@ const getAnime = async (query, variables=null) => {
     const data = await fetch(url, fetchOptions)
         .then(res => res.json())
         .then(json => {
-            console.log(Object.values(json)[0])
+            // console.log(Object.values(json)[0])
             return Object.values(json)[0]
         })
         .catch(err => console.error('error:' + err))
@@ -93,7 +107,7 @@ router.route('/').get( async (req, res) => {
     
         const genres = await getAnime(queries.general.allGenreTags);
     
-        console.log(genres)
+        // console.log(genres)
     
         res.locals.queryData = {
             seasonFilter: seasonFilter.Page.media,
@@ -101,6 +115,8 @@ router.route('/').get( async (req, res) => {
             trendingFilter: trendingFilter.Page.media,
             genres: genres
         }
+
+        // console.log(genres.GenreCollection)
     
         res.render('home')
     } catch (err) {
@@ -119,20 +135,53 @@ router.route('/anime/:id').get( async (req, res) => {
     
         const currAnime = await getAnime(queries.animePage, animeId)
     
-        console.log(currAnime.Media.reviews.edges)
-        console.log(currAnime.Media.recommendations.edges)
+        // console.log(currAnime.Media.reviews.edges)
+        // console.log(currAnime.Media.recommendations.edges)
+
+        // * Change the date of all the reviews to a readbale date
+        for (let review of currAnime.Media.reviews.edges) {
+
+            const newDate = getReviewDate(review.node.createdAt)
+            review.node.createdAt = newDate
+            console.log(review.node.createdAt)
+        }
     
         res.locals.queryData = {
             currAnime: currAnime.Media
         }
-    
+
+        req.app.locals.reviews = currAnime.Media.reviews.edges
+
+        console.log(req.app.locals)
+
         res.render('anime')
 
     } catch(err) {
         console.log(err);
     }
     
+})
 
+
+router.route('/review/:id').get( async (req, res) => {
+    
+
+    // const reviewId = req.params.id
+    // for (let review of req.app.locals.reviews) {
+    //     if (reviewId == review.node.id) {
+    //         console.log('Review found', review.id)
+    //     }
+    // }
+
+    const reviewId = {
+        id: req.params.id
+    }
+
+    const review = await getAnime(queries.general.review, reviewId)
+
+    console.log(review)
+
+    res.status(201).json(review)
 })
 
 

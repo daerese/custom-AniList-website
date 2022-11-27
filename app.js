@@ -43,6 +43,21 @@ hbs.registerPartials(partialsPath)
 // Expose our app to hbs so we can use locals
 hbs.localsAsTemplateData(app)
 
+// app.use((req, res, next) => {
+//     console.log('Middleware called')
+
+
+//     // * Reviews of each anime are saved in app locals because I will access 
+//     // * Specific reviews across different req/res cycles. It should be global.
+//     // * locals.reviews only exists when on a certain page.
+//     if (req.app.locals.reviews) {
+//         delete req.app.locals.reviews
+//     }
+
+//     // console.log(req.app.locals)
+//     next()
+// })
+
 app.use(require('./routes'))
 
 

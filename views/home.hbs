@@ -19,86 +19,28 @@
     {{!-- Fontawesome icons --}}
     <script src="https://kit.fontawesome.com/a4e8b7b3a4.js" crossorigin="anonymous"></script>
 
+    <script>
+        document.onreadystatechange = function () {
+            if (document.readyState != 'complete') {
+                $('.loading-screen').css('display', 'grid')
+                console.log('loading...')
+
+            } else if (document.readyState == 'complete') {
+                $('.loading-screen').fadeOut()
+                console.log('Fully loaded!')
+            }
+        }
+    </script>
+
 
 </head>
 <body>
 
-
+    {{> loading_screen}}
 
     <header class="header-home">
 
-        <nav class="navbar" id="navbar">
-
-            <div class="container navbar-container">
-                <div class="navbar-left">
-                    <button class="btn btn-icon" id="btn-toggle-nav">
-                        <i class="fa-solid fa-bars"></i>
-                    </button>
-
-                    <p class="bold logo">Any<span>Anime</span></p>
-                </div>
-
-                <div class="navbar-center">
-                    {{!-- * Where the search bar will go --}}
-                    {{!-- * On mobile, this will appear on the left. --}}
-
-
-                    <form action="/search/anime" method="GET" class="searchbar-container">
-                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                        <input type="text" id="searchBar"
-                            placeholder="Search Anime" name="search">
-                        <button type="submit" style="display: none;"></button>
-                    </form>
-
-                </div>
-
-                <div class="navbar-right">
-                        
-                        <ul class="nav-links">
-                            <li class="nav-link">
-                                <a href="">Home</a>
-                            </li>
-                            <li class="nav-link">
-                                <a href="">Anime</a>
-                            </li>
-                            <li class="nav-link">
-                                <a href="">Manga</a>
-                            </li>
-                            <li class="nav-link">
-                                <a href="">Characters</a>
-                            </li>
-                        </ul>
-
-                </div>
-            </div>
-
-            <div id="nav-menu">
-
-                <div class="container">
-                    <ul id="nav-menu-links">
-                        <li class="bold nav-menu-link"> 
-                            <a href="http://localhost:3001">Home</a>
-                            <div class="line"></div>
-                        </li>
-                        <li class="bold nav-menu-link">
-                            <div class="nav-menu-link-inner">
-                                <a href="">Anime</a>
-                                <div class="line"></div>
-                            </div>
-                        </li>
-                        <li class="bold nav-menu-link">
-                            <a href="">Manga</a>
-                            <div class="line"></div>
-                        </li>
-                        <li class="bold nav-menu-link">
-                            <a href="">Characters</a>
-                            <div class="line"></div>
-                        </li>
-                    </ul>
-                </div>
-
-            </div>
-        </nav>
+        {{> navbar}}
         
         <div class="container header-content">
 
@@ -204,7 +146,16 @@
                                             {{/if}}
                                             <p class="rating-text bold subtext">{{this.averageScore}}% Average Rating</p>
                                         </div>
+                                    
+                                    
                                 </a>
+                                <a class="card-banner-link" href="http://localhost:3001/anime/{{this.id}}">
+                                    <div class="card-banner-container" style="--bg-image: url({{this.bannerImage}})">
+                                    </div>
+                                </a>
+
+                                
+
                                 {{!-- *Elements displayed on tablet on larger --}}
                                 <div class="card-details-container">
 
@@ -217,10 +168,13 @@
                                                 {{this.title.romaji}}
                                             {{/if}}
                                         </h3>
-                                        <p class="black-dot">&#x2022;</p>
+                                        {{!-- <p class="black-dot">&#x2022;</p> --}}
                                         <p class="rating-text bold subtext">{{this.averageScore}}% Average Rating</p>
+                                        <hr>
                                     </div>
-                                    <p class="">{{{this.description}}}</p>
+                                    <div class="card-details-container-body">
+                                        <p class="subtext">{{{this.description}}}</p>
+                                    </div>
                                 </div>
                             </div>
                         {{/each}}
@@ -294,7 +248,16 @@
 
             <div class="genre-tags-container">
 
-                <div class="flex-column">
+
+                {{#if queryData.genres}}
+                    
+                    {{#each queryData.genres.GenreCollection}}
+                        <button class="btn btn-secondary btn-genre">{{this}}</button>                       
+                    {{/each}}
+
+                {{/if}}
+
+                {{!-- <div class="flex-column">
                     
                     <button class="btn btn-secondary btn-genre">Action</button>
                     <button class="btn btn-secondary btn-genre">Action</button>
@@ -314,7 +277,7 @@
                     <button class="btn btn-secondary btn-genre">Action</button>
                     <button class="btn btn-secondary btn-genre">Action</button>
                     <button class="btn btn-secondary btn-genre">Action</button>
-                </div>
+                </div> --}}
 
 
             </div>

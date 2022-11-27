@@ -2,94 +2,74 @@
 <html lang="en">
 <head>
     {{> head}}
+
+    <script>
+        
+    </script>
 </head>
 <body>
+
+    {{!-- <div class="loading-screen">
+
+        <div class="loader">
+
+            <div class="sq1"></div>
+            <div class="sq2"></div>
+
+        </div>
+
+    </div> --}}
+
+    {{> loading_screen}}
 
     {{#if queryData.currAnime}}
 
 
         <div class="modal-overlay">
 
-            <div class="modal-content-wrapper">
+            <div class="modal-content-wrapper" id="modal-content-wrapper">
+
+                <div class="loading-element">
+                    <div class="loader">
+
+                        <div class="sq1"></div>
+                        <div class="sq2"></div>
+
+                    </div>
+                </div>
                 
+
+                {{!-- <div class=""> --}}
+
+                    <div class="modal-top">
+                        <button class="btn btn-icon" id="btnCloseReview">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+
+                    {{!-- <div class="modal-header"> --}}
+
+                        {{!-- TODO: With AJAX, insert review header stuff: Name / Profile pic --}}
+
+                    {{!-- </div> --}}
+
+                    {{!-- <hr> --}}
+
+                    {{!-- <div class="modal-body"> --}}
+                        {{!-- TODO: With AJAX, insert body content here --}}
+
+                    {{!-- </div> --}}
+
+
+                {{!-- </div> --}}
+
             </div>
 
         </div>
 
         <header class="header-anime flex-column-space" data-banner="{{queryData.currAnime.bannerImage}}"
                 style="--banner-image: url({{queryData.currAnime.bannerImage}})">
-            <nav class="navbar navbar-other" style="flex-grow: 0; flex-shrink: 0;" id="navbar">
-
-                <div class="container flex-space">
-                    <div class="navbar-left">
-                        <button class="btn btn-icon" id="btn-toggle-nav">
-                            <i class="fa-solid fa-bars"></i>
-                        </button>
-
-                        <p class="bold logo">Any<span>Anime</span></p>
-                    </div>
-
-                    <div class="navbar-center">
-                        {{!-- * Where the search bar will go --}}
-                        {{!-- * On mobile, this will appear on the left. --}}
-
-
-                    <form action="/search/anime" method="GET" class="searchbar-container">
-                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                        <input type="text" id="searchBar"
-                            placeholder="Search Anime" name="search">
-                        <button type="submit" style="display: none;"></button>
-                    </form>
-
-                    </div>
-
-                    <div class="navbar-right">
-                        
-                        <ul class="nav-links">
-                            <li class="nav-link">
-                                <a href="">Home</a>
-                            </li>
-                            <li class="nav-link">
-                                <a href="">Anime</a>
-                            </li>
-                            <li class="nav-link">
-                                <a href="">Manga</a>
-                            </li>
-                            <li class="nav-link">
-                                <a href="">Characters</a>
-                            </li>
-                        </ul>
-
-                    </div>
-                </div>
-
-                <div id="nav-menu">
-
-                    <div class="container">
-                        <ul id="nav-menu-links">
-                            <li class="bold nav-menu-link"> 
-                                <a href="http://localhost:3001">Home</a>
-                                <div class="line"></div>
-                            </li>
-                            <li class="bold nav-menu-link">
-                                <div class="nav-menu-link-inner">
-                                    <a href="">Anime</a>
-                                    <div class="line"></div>
-                                </div>
-                            </li>
-                            <li class="bold nav-menu-link">
-                                <a href="">Manga</a>
-                                <div class="line"></div>
-                            </li>
-                            <li class="bold nav-menu-link">
-                                <a href="">Characters</a>
-                                <div class="line"></div>
-                            </li>
-                        </ul>
-                    </div>
-
-                </div>
-            </nav>
+            {{> navbar_other}}
 
             <div class="container flex-default header-anime-cover-title" style="flex-grow: 0; flex-shrink: 0;">
 
@@ -107,7 +87,7 @@
 
         </header>
 
-        <div class="container">
+        <div class="container anime-content-wrapper">
             
             <main>
 
@@ -131,7 +111,7 @@
                 <div class="main-section main-section-characters">
                     <p class="bold main-section-title">Characters</p>
 
-                    <div class="page-cards-container">
+                    <div class="page-cards-container scroll scroll-x">
                         {{#if queryData.currAnime.characters}}
                             {{#each queryData.currAnime.characters.edges }}
 
@@ -158,28 +138,42 @@
                 <div class="main-section">
                     <p class="bold main-section-title">Similar to this</p>
 
-                    <div class="page-cards-container">
+                    <div class="page-cards-container scroll scroll-x">
                         {{#if queryData.currAnime.recommendations}}
                             {{#each queryData.currAnime.recommendations.edges }}
                 
 
-                            <a href="http://localhost:3001/anime/{{this.node.mediaRecommendation.id}}">
-                                <div class="card page-card rec-card" data-media-id="{{this.node.id}}">
-                                    
-                                    <div class="page-card-image-container">
-                                        <img class="card-img" src="{{this.node.mediaRecommendation.coverImage.large}}" alt="character-image">
-                                    </div>
-                                    
+                                {{#if this.node.mediaRecommendation}}
+                                
+                                    <a href="http://localhost:3001/anime/{{this.node.mediaRecommendation.id}}">
+                                        <div class="card page-card rec-card" data-media-id="{{this.node.id}}">
+                                            
+                                            <div class="page-card-image-container">
+                                                <img class="card-img" src="{{this.node.mediaRecommendation.coverImage.large}}" alt="anime-cover-image">
+                                            </div>
+                                            
 
-                                    <p class="subtext-small bold page-card-name">
-                                        {{#if this.node.mediaRecommendation.title.userPreferred}}
-                                            {{this.node.mediaRecommendation.title.userPreferred}}
-                                        {{/if}}
+                                            <p class="subtext-small bold page-card-name">
+                                                {{#if this.node.mediaRecommendation.title.english}}
 
-                                        
-                                    </p>
-                                </div>
-                            </a>
+                                                    {{this.node.mediaRecommendation.title.english}}
+                                                    
+                                                    {{else}}
+                                                    {{#if this.node.mediaRecommendation.title.userPreferred}}
+                                                        {{this.node.mediaRecommendation.title.userPreferred}}
+
+                                                        {{else}}
+                                                        {{this.node.mediaRecommendation.title.romaji}}
+                                                    {{/if}}
+
+                                                {{/if}}
+
+                                                
+                                            </p>
+                                        </div>
+                                    </a>
+                                {{/if}}
+
                             {{/each}}
                         {{/if}}
                     </div>
@@ -194,8 +188,9 @@
                     {{#if queryData.currAnime.reviews.edges}}
                         
                         {{#each queryData.currAnime.reviews.edges}}
+
                             
-                            <div class="review-container">
+                            <div class="review-container" data-review-id="{{this.node.id}}" data-media-id="{{this.node.mediaId}}">
                                 <div class="review-header flex">
 
                                     {{!-- TODO: Default BG Color. Circle Container --}}
@@ -206,7 +201,7 @@
                                     <div class="review-header-username flex">
                                         <p class="bold light-text subtext-small">{{this.node.user.name}}</p>
                                         <p class="black-dot">&#x2022;</p>
-                                        <span class="light-text subtext-small">{{this.node.createdAt}}</span>
+                                        <span class="light-text subtext-small review-date">{{this.node.createdAt}}</span>
 
                                     </div>
                                 </div>
@@ -214,19 +209,20 @@
                                     <p class="light-text subtext review">{{this.node.summary}}</p>
 
                                     {{!-- TODO: Insert review id. --}}
-                                    <form action="/review/insert-review-id" method="POST">
+                                    {{!-- <form action="/anime/{{this.node.mediaId}/review" method="POST"> --}}
                                         
-                                        <button class="btn-text btn-text-open-review light-text" type="submit">
-                                            View full review<span> <i class="fa-solid fa-angles-right"></i> </span>
+                                        <button class="btn-text btn-text-open-review light-text btn-open-review">
+                                            View full review<span> <i class="fa-solid fa-angles-right"></i></span>
                                         </button>
-                                    </form>
+                                    {{!-- </form> --}}
                                 </div>
 
                                 {{!-- Todo: Border on the score instead of an <hr> --}}
                                 <div class="review-score-container">
                                     <p class="bold subtext-small light-text">
-                                        User Rating:<span style="color: #269b85; margin-left: 3px">{{this.node.score}}%</span>
-                                        </p>
+                                        Rating:<span data-review-score="{{this.node.score}}" 
+                                                class="review-score" style="color: #269b85; margin-left: 3px">{{this.node.score}}%</span>
+                                    </p>
                                 </div>
                             </div>
 
@@ -242,7 +238,12 @@
 
             </main>
 
-            <aside class="trailer-section">
+            <aside>
+
+                <div class="trailer-section">
+
+                </div>
+                
 
             </aside>
 
@@ -255,9 +256,97 @@
 
 
 <script>
+// * Utility functions
 
-    
+
+// Function to change the colors of the rating text.
+function colorReviewScore(score, reviewElement) {
+        //console.log('called')
+        if (score < 70 && score >= 30) {
+                console.log('Medium review')
+                reviewElement.style.color = '#c76a2b';
+            } else if (score < 30) {
+                console.log('low review')
+                reviewElement.style.color = '#d43535';
+            }
+}
+
+
+/**********************************************************************/
+// Loading before the document is fully ready.
+document.onreadystatechange = function () {
+
+            console.log('Current ready state --> ', document.readyState)
+            
+            if (document.readyState != 'complete') {
+
+                $('.loading-screen').show()
+                console.log('Loading the page...')
+
+                // This will change the colors of the user rating text to match the score value.
+                if (document.readyState == 'interactive') {
+
+                    for(let review of $('.review-score')) {
+                        
+                        let score = review.dataset.reviewScore
+
+                        colorReviewScore(score, review)
+                        
+                    }
+                }
+
+            } 
+             else if (document.readyState == 'complete') {
+                $('.loading-screen').fadeOut()
+                //console.log('Page fully loaded!')
+            }
+}
+
+/**********************************************************************/
+// After the document is ready.
+
+
 $(document).ready( () => {
+
+    $(document).on({
+        ajaxStart: function(event) { 
+            console.log('Loading element...')    
+        },
+        ajaxStop: function() { console.log("Element finished loading."); }    
+    });
+
+    // Code that changes the color of the navbar once the user scrolls down.
+    $(window).scroll( (event) => {
+        if($(window).scrollTop()) {
+            // If the scroll position is NOT at the top.
+
+            $('#navbar').addClass('navbar-bg');
+        
+            // Give the navbar a fixed position. when scrolling the rest of the page.
+            const headerHeight = ($('header').height() - 60)
+            //console.log(headerHeight)
+
+            if ($(window).scrollTop() >= headerHeight) {
+                $('#navbar').addClass('navbar-fixed')
+                $('header').addClass('border-top')
+
+                // console.log('END OF HEADER REACHED')
+            }
+            else {
+                $('#navbar').removeClass('navbar-fixed')
+                $('header').removeClass('border-top')
+            }
+
+        } else {
+            
+            //If the scroll position of the window is at the top.
+            if(!($('#nav-menu').hasClass('nav-menu-open'))) {
+                $('#navbar').removeClass('navbar-bg')
+            }
+            console.log('Back at the top')
+        }
+    })
+
 
     $('#btn-toggle-nav').click( (event) => {
             toggleNav(event)
@@ -298,6 +387,104 @@ $(document).ready( () => {
     function closeNav() {
         $('#nav-menu').css('height', 0)
     }
+
+
+
+    // *********************** *************
+    // Open review functionality
+    $('.btn-open-review').click(async function() {
+
+        const selectedBtn = event.currentTarget.closest('.review-container')
+
+        
+        const xhr = $.ajax({
+            url: `http://localhost:3001/review/${selectedBtn.getAttribute('data-review-id')}`, 
+            method: 'GET',
+            beforeSend: function(jq, settings) {
+
+                $('.loading-element').show()
+            },
+            success: async function(data, status, jq) {
+
+                $('.loading-element').fadeOut()
+                const reviewDate =  await getReviewDate(data.Review.createdAt);
+
+                await $(`  
+                    <div class="modal-header container-static">
+
+                        <div class="review-header flex">
+
+
+                            <div class="review-header-user-avatar" style="--bg-image: url(${data.Review.user.avatar.large})">
+                            </div>
+
+                            <div class="review-header-username flex">
+
+                            
+                                <p class="bold light-text subtext-small">${data.Review.user.name}</p>
+                                <p class="black-dot">&#x2022;</p>
+                                <span class="light-text subtext-small review-date">${reviewDate}</span>
+                                <p class="black-dot">&#x2022;</p>
+                                <span data-review-score="${data.Review.score}" 
+                                                class="modal-review-score bold subtext-small" 
+                                                style="color: #269b85; margin-left: 3px">${data.Review.score}%</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-body">
+
+                        
+                        <div class="container-static">
+                            ${data.Review.body}
+                        </div>
+                    </div>
+                
+            `).insertAfter('.modal-top')
+
+                const reviewScore = document.querySelector('.modal-review-score')
+                
+                colorReviewScore(reviewScore.dataset.reviewScore, reviewScore)
+            }
+        })
+
+        $('.modal-content-wrapper').show()
+        $('.modal-overlay').fadeIn()
+
+        $('body').addClass('no-scrollbar')
+
+    })
+
+    const review = document.getElementById('modal-content-wrapper')
+
+    
+
+    $('#btnCloseReview').click(function() {
+
+        $('.modal-content-wrapper').hide()
+
+        $('.modal-header').remove()
+        $('.modal-body').remove()
+
+        $('.modal-overlay').fadeOut()
+
+        $('body').removeClass('no-scrollbar')
+    })
+
+
+    function getReviewDate(unixTime) {
+    
+        // Convert to milliseconds. The JS Date object can then convert milliseconds into a date.
+        // * UnixTime is specified as the amount of seconds that passed since the beginning 
+        // * of unix epochf (January 1st, 1970)
+        const milliseconds = unixTime * 1000
+
+        const reviewDate = (new Date(milliseconds)).toLocaleString()
+
+        return reviewDate.split(',')[0]
+    }
+    
 })
 
 </script>

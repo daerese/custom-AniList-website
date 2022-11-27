@@ -16,6 +16,10 @@
     --color-second-sat: #6D91EA;
     --color-second-dark: #354A54;
 
+    --rating-high: #269b85;
+    --rating-medium: #c76a2b;
+    --rating-low: #d43535;
+
     --box-shadow: 0 5px 10px rgba(0, 0, 0, 0.185);
     --box-shadow-hover: 0 5px 10px rgba(0, 0, 0, 0.418);
 }
@@ -44,6 +48,8 @@ html {
 body {
     margin: 0;
     padding: 0;
+
+    overflow: auto;
 
     /* background: linear-gradient(to bottom, var(--color-main), white); */
     /* background-position: center; */
@@ -93,9 +99,13 @@ a:visited {
 }
 
 .card-link {
-    /* transition-duration: 200ms !important; */
+    transition-duration: 200ms !important;
     display: block;
     /* border: 1px solid red; */
+}
+
+.card-link * {
+    transition-duration: 200ms;
 }
 
 .card-link img {
@@ -103,7 +113,7 @@ a:visited {
     box-shadow: var(--box-shadow);
 }
 
-.card-link:hover p {
+.card-link:hover p:not(.rating-text) {
     color: var(--color-main-sat);
 }
 
@@ -120,6 +130,10 @@ a:visited {
     aspect-ratio: 1.5 / 2.2 !important;
     /* height: 100%; */
     border-radius: 6px;
+
+    border-radius: 12px;
+    /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.185); */
+    transition-duration: 300ms;
 }
 
 .grid-cards {
@@ -134,6 +148,106 @@ a:visited {
     flex-direction: column;
 }
 
+/* * Containers with scrolling overflow */
+
+.scroll::-webkit-scrollbar {
+    background-color: transparent;
+    /* width: 8px; */
+    /* height: 8px; */
+}
+
+.scroll-y::-webkit-scrollbar { 
+    width: 8px;
+}
+
+.scroll-x::-webkit-scrollbar {
+    height: 8px;
+}
+
+/* *Scrollbar foreground */
+
+.scroll::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.205);
+    /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.219); */
+    border-radius: 8px;
+    /* width: 5px; */
+}
+
+/* * Scrollbar Background */
+.scroll::-webkit-scrollbar-track {
+    /* background: blue; */
+}
+
+/* ****************** 
+* Loading animation
+* ********************/
+
+.loading-screen,
+.loading-element {
+    width: 100%;
+    height: 100%;
+    background: white;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+
+    margin: 0;
+  
+    /* * For centering the loading icon. */
+    display: grid;
+
+    align-items: center;
+    justify-items: center;
+    /* display: none; */
+}
+
+
+/* * The squares placed inside this container will automatically take on
+   * the same width and height. */
+.loader {
+    width: 100px;
+    height: 100px;
+    position: relative;
+  
+    animation-name: spin;
+    animation-duration: 8s;
+    animation-iteration-count: infinite;
+
+    animation-timing-function: linear;
+}
+
+
+
+.sq1, .sq2 {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.sq1 {
+    border: 2px solid #EFC1FF;
+}
+
+.sq2 {
+    background-image: linear-gradient(var(--color-main), var(--color-second));
+    transform: rotate(45deg);
+}
+
+@keyframes spin {
+from {
+    transform: rotate(0deg);
+}
+to {
+    transform: rotate(360deg);
+    
+}
+}
+
+
+
+
 /************** 
 * * BASE STYLES AND UTILITIES
 ****************/
@@ -143,6 +257,11 @@ a:visited {
     width: 90%;
     margin: 0 auto; 
     /* border: 1px solid red; */
+}
+
+.container-static {
+    width: 90%;
+    margin: 0 auto;
 }
 
 section {
@@ -226,6 +345,16 @@ section {
     justify-content: space-between;
 }
 
+/* * Utility to remove the scrollbar from an element */
+.no-scrollbar{
+	-ms-overflow-style: none;  /* IE and Edge */
+	 scrollbar-width: none;  /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+	display: none; 
+}
+
 /* * Buttons */
 
 .btn {
@@ -286,6 +415,11 @@ section {
 
 .btn-genre-details-page:active {
     background: rgb(167, 167, 167);
+}
+
+.btn-icon {
+    background: transparent;
+    border: none;
 }
 
 /************** 
@@ -377,6 +511,23 @@ header {
     width: 100%;
 }
 
+/* * Applying styles to the navbar for different pages. */
+
+/* Navbar for other pages. */
+.navbar-other {
+    background-color: var(--opaque-black)
+}
+
+.header-search .navbar-other {
+    position: fixed;
+}
+
+
+.header-anime .navbar-other,
+.header-anime #nav-menu {
+    background: rgba(0, 0, 0, 0.5)
+}
+
 /* * The content inside the navbar */
 .navbar-container {
     display: grid;
@@ -389,12 +540,8 @@ header {
     /* border: 1px solid green; */
 }
 
-/* Navbar for other pages. */
-.navbar-other {
-    background-color: var(--opaque-black)
-}
 
-/* Navbar utilities */
+/* * Navbar utilities */
 .navbar-bg {
     /* background-color: var(--color-second-dark); */
     background-color: var(--opaque-black); 
@@ -693,48 +840,130 @@ header {
 .card-details-container {
     display: none;
     text-align: left;
+
 }
 
-.card-details-container-header {
-    display: flex;
-    align-items: center;
+.card-details-container-body {
+    overflow: hidden;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;  
 }
 
-/* .card-banner-container {
+.card-banner-link {
     display: none;
-    border: 1px solid red;
-    height: 125px;
-    overflow-y: hidden;
+    /* border: 1px solid red; */
+}
+
+.card-banner-container {
+    /* display: none; */
+    /* overflow-y: hidden; */
+    height: 100px;
 
     background-image: var(--bg-image);
     background-position: center;
     background-size: cover;
-
-} */
-
-/* TODO: Find a way to make the carousel item look good, change it. */
-@media screen and (min-width: 445px) {
-
+    
+    box-shadow: var(--box-shadow);
+    transition-duration: 200ms;
 }
 
-@media screen and (min-width: 850px) {
+.card-banner-container:hover {
+    box-shadow: var(--box-shadow-hover);
+    cursor: pointer;
+}
+
+
+
+
+
+/* TODO: Find a way to make the carousel item look good, change it. */
+@media screen and (min-width: 485px) {
+    
+
     .carousel-item {
         /* grid-template-rows: ; */
-        /* display: grid; */
-        grid-template-columns: 1fr 3fr; 
-        gap: 15px;
+        display: flex;
+        flex-direction: column;
+        /* grid-template-columns: 1fr 3fr;  */
+        /* gap: 15px; */
+        max-height: 350px;
+        overflow-y: hidden;
     }
 
     .carousel-item .card-link {
-        /* display: block; */
+        display: none;
     }
 
-    .carousel-item .card-title-container {
-        display: none;
+    .card-banner-container, .card-banner-link {
+        display: block;
     }
 
     .card-details-container {
         display: block;
+    }
+
+    .card-details-container-header h3 {
+        font-size: 1.15rem;
+        margin-bottom: .6rem;
+        /* margin-top: 0; */
+    }
+    
+    .card-details-container-body {
+        overflow: hidden;
+  
+        display: -webkit-box;
+        -webkit-line-clamp: 8;
+        -webkit-box-orient: vertical;  
+    }
+    
+}
+
+@media screen and (min-width: 845px) {
+    .carousel-item {
+        /* grid-template-rows: ; */
+        display: grid;
+        grid-template-columns: 1fr 3fr; 
+        gap: 15px;
+        max-height: 350px;
+        overflow-y: hidden;
+    }
+
+    .card-banner-container, .card-banner-link {
+        display: none;
+    }
+
+    .carousel-item .card-link {
+        display: block;
+    }
+    
+    .carousel-item .card-title-container {
+        display: none;
+    }
+    
+    .card-details-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-details-container-header {
+        /* display: flex; */
+        /* align-items: center; */
+    }
+    
+    .card-details-container-header h3 {
+        font-size: 1.15rem;
+        margin-bottom: .6rem;
+        margin-top: 0;
+    }
+
+    .card-details-container-body {
+        overflow: hidden;
+  
+        display: -webkit-box;
+        -webkit-line-clamp: 8;
+        -webkit-box-orient: vertical;  
     }
 }
 
@@ -751,6 +980,10 @@ section {
     /* overflow-y: auto; */
 }
 
+.section-spotlight *:not(.rating-text) {
+    color: white;
+}
+
 .spotlight-container {
     text-align: center;
 }
@@ -760,7 +993,7 @@ section {
 }
 
 .spotlight-header {
-    color: white;
+    /* color: white; */
     /* color: var(--color-main-light) */
     /* color: rgb(230, 230, 230); */
 }
@@ -779,7 +1012,7 @@ section {
 
 /* * Carousel Center (Divs containing image and details) */
 .carousel-content {
-    /* center of the carousel */
+    /* cente r of the carousel */
     width: 80%;
     padding: .7rem;
 
@@ -851,6 +1084,37 @@ section {
 /*************************************/
 /* * ANIME PAGE */
 /*************************************/
+
+/* * This contais the all the content for the anime page under the header.
+   * (main and aside) */
+.anime-content-wrapper {
+    /* display: flex;  */
+    /* flex-direction: row; */
+    /* gap: 1.5rem; */
+
+}
+
+/* * Aside / Trailer section */
+.anime-content-wrapper aside {
+    /* border: 1px solid green; */
+    /* display: flex; */
+    /* visibility: hidden; */
+    /* max-width: 30%; */
+    /* min-width: 150px; */
+    /* width: 30%; */
+}
+
+.trailer-section {
+    /* min-width: 100%; */
+    /* width: 100%;
+    height: 350px;
+    background: rgb(255, 61, 61);
+    border-radius: 12px; */
+}
+
+main {
+    /* width: 70%;  */
+}
 
 .header-anime {
     min-height: 325px;
@@ -1077,6 +1341,13 @@ section {
 
 /* * Review details modal */
 
+.modal-overlay .loading-element {
+    /* * It's an overlay for the review container, so give it the
+       * same settings as the container.  */
+    border-radius: 12px;
+    background: #EEEEEE;
+}
+
 .modal-overlay {
     position: fixed; 
     z-index: 5;
@@ -1087,15 +1358,109 @@ section {
 }
 
 .modal-content-wrapper {
+    position: relative;
     width: 100%;
     height: 100%;
     background: #EEEEEE;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
 }
 
+.modal-top { 
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.modal-header {
+    /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.329); */
+}
+
+.modal-body {
+    overflow-y: auto;
+    padding-bottom: .75rem;
+    /* scrollbar-color: green blue; */
+    /* width: 100%; */
+}
+
+.modal-body::-webkit-scrollbar {
+    background-color: transparent;
+    width: 10px;
+}
+
+/* *Scrollbar foreground */
+.modal-body::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.205);
+    /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.219); */
+    border-radius: 8px;
+    /* width: 5px; */
+}
+
+/* * Scrollbar Background */
+.modal-body::-webkit-scrollbar-track {
+    /* background: blue; */
+}
+
+.modal-body * {
+    font-size: 1rem;
+    /* font-size: 14px; */
+    /* line-height: 20px; */
+}
+
+/* Targeting other media within reviews */
+.modal-body img, .modal-body video{
+    /* max-width: 90%; */
+    margin: 1rem auto;
+    border-radius: 8px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.274);
+}
+
+.modal-body video {
+    width: 100%;
+}
+
+.modal-overlay .black-dot {
+    margin: 0;
+}
+
+@media screen and (min-width: 500px) {
+
+
+    
+
+    .modal-content-wrapper {
+
+        width: 460px;
+        height: 575px;
+        /* margin: 0 auto; */
+        border-radius: 12px;
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+}
+
+@media screen and (max-height: 585px) {
+    /* * This media query takes into account that some devices */
+
+    .modal-content-wrapper {
+        /* height: 100vh; */
+    }
+
+}
 
 /*************************************/
 /* * SEARCH PAGE */
 /*************************************/
+.results-wrapper {
+    margin-top: min(80px);
+}
+
 .search-cards-container {
     /* display: flex; */
     /* flex-wrap: wrap; */
