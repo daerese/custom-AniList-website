@@ -5,7 +5,7 @@ const queries = {
         // Season Sort
         seasonFilter: `
         {
-            Page (page: 2, perPage: 6) {
+            Page (page: 1, perPage: 6) {
               pageInfo {
                 total
                 currentPage

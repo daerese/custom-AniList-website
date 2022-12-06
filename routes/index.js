@@ -42,11 +42,11 @@ const getReviewDate = (unixTime) => {
     return reviewDate.split(',')[0]
 }
 
+
+// * Function that sets up and returns the options for the API fetch.
 const getOptions = (query, variables=null) => {
     
     const body = {query: query}
-
-    // console.log('BODY', body)
 
     if (variables) {
         body.variables = variables
@@ -60,23 +60,10 @@ const getOptions = (query, variables=null) => {
         },
         body: JSON.stringify(body)
     }
-
-    // const options = {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'Accept': 'application/json'
-    //     },
-    //     body: JSON.stringify({ 
-    //         query: query
-    //      })
-    // }
-
     return options
-    
 }
 
-// * Function to get the anime information
+// * Function to fetch anime information from Anilist
 const getAnime = async (query, variables=null) => {
 
     const fetchOptions = getOptions(query, variables)
@@ -94,11 +81,11 @@ const getAnime = async (query, variables=null) => {
     return data
 }
 
-// Index page route
+// * Home page URL route
 router.route('/').get( async (req, res) => {
 
-
     try {
+        // * API queries
         const seasonFilter = await getAnime(queries.animeCards.seasonFilter)
     
         const popularityFilter = await getAnime(queries.animeCards.popularityFilter)
@@ -107,18 +94,16 @@ router.route('/').get( async (req, res) => {
     
         const genres = await getAnime(queries.general.allGenreTags);
     
-        // console.log(genres)
-    
+        // * Making it available to the front-end
         res.locals.queryData = {
             seasonFilter: seasonFilter.Page.media,
             popularityFilter: popularityFilter.Page.media,
             trendingFilter: trendingFilter.Page.media,
             genres: genres
         }
-
-        // console.log(genres.GenreCollection)
     
         res.render('home')
+
     } catch (err) {
         console.log(err)
     }
@@ -164,14 +149,6 @@ router.route('/anime/:id').get( async (req, res) => {
 
 
 router.route('/review/:id').get( async (req, res) => {
-    
-
-    // const reviewId = req.params.id
-    // for (let review of req.app.locals.reviews) {
-    //     if (reviewId == review.node.id) {
-    //         console.log('Review found', review.id)
-    //     }
-    // }
 
     const reviewId = {
         id: req.params.id
@@ -184,21 +161,15 @@ router.route('/review/:id').get( async (req, res) => {
     res.status(201).json(review)
 })
 
-
+// * Search page URL route
 router.route('/search/anime?:search').get( async (req, res) => {
-
     try {
-
-        // * Apply the search within your search query. Pass the returened search into 
-        // * locals
 
         const search = {
             search: req.query.search
         }
 
         const searchResults = await getAnime(queries.general.search, search);
-
-        // console.log(searchResults.Page.media)
 
         res.locals.queryData = {
             results: searchResults.Page.media

@@ -256,8 +256,10 @@ to {
 .container { 
     width: 90%;
     margin: 0 auto; 
+    max-width: 1120px;
     /* border: 1px solid red; */
 }
+
 
 .container-static {
     width: 90%;
@@ -1118,13 +1120,12 @@ main {
 
 .header-anime {
     min-height: 325px;
-    max-height: 50vh;
-    /* max-height: 43vh; */
-    /* background: lightgreen; */
+    height: 45vh;
+    max-height: 400px;
+    
     position: relative;
     background: var(--color-main-dark);
     padding-bottom: 1rem;
-    max-height: 350px;
 }
 
 .navbar-anime {
@@ -1527,7 +1528,7 @@ main {
 
 
 @media screen and (min-width: 405px) {
-    /* Let's change the grids on the home page to 2x3 */
+    /* * Change the column count of the grid lists. */
 
     .search-cards-container, .grid-cards {
         grid-template-columns: repeat(3, 1fr);
@@ -1574,14 +1575,15 @@ main {
 
 @media screen and (min-width: 1000px) {
 
-    .container {
-        width: 82%;
-    }
-
+    
     .search-cards-container, .grid-cards {
         grid-template-columns: repeat(6, 1fr);
     }
-
+    
+    .container {
+        width: 82%;
+    }
+    
     .grid-cards-home .card-link:last-child {
         /* border: 1px solid green; */
         display: block;
