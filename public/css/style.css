@@ -1151,9 +1151,9 @@ main {
 
 .header-anime:not([data-banner=""])::before {
     content: "";
-    backdrop-filter: blur(.1rem);
-    filter: blur(1px);
-    -webkit-filter: blur(1px);
+    /* backdrop-filter: blur(.1rem); */
+    /* filter: blur(1px); */
+    /* -webkit-filter: blur(1px); */
     background: rgba(255, 255, 255, 0.137);
     width: 100%;
     height: 100%;
