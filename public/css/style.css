@@ -256,8 +256,10 @@ to {
 .container { 
     width: 90%;
     margin: 0 auto; 
+    max-width: 1120px;
     /* border: 1px solid red; */
 }
+
 
 .container-static {
     width: 90%;
@@ -881,13 +883,9 @@ header {
 /* TODO: Find a way to make the carousel item look good, change it. */
 @media screen and (min-width: 485px) {
     
-
     .carousel-item {
-        /* grid-template-rows: ; */
         display: flex;
         flex-direction: column;
-        /* grid-template-columns: 1fr 3fr;  */
-        /* gap: 15px; */
         max-height: 350px;
         overflow-y: hidden;
     }
@@ -922,12 +920,9 @@ header {
 
 @media screen and (min-width: 845px) {
     .carousel-item {
-        /* grid-template-rows: ; */
         display: grid;
         grid-template-columns: 1fr 3fr; 
         gap: 15px;
-        max-height: 350px;
-        overflow-y: hidden;
     }
 
     .card-banner-container, .card-banner-link {
@@ -1118,13 +1113,12 @@ main {
 
 .header-anime {
     min-height: 325px;
-    max-height: 50vh;
-    /* max-height: 43vh; */
-    /* background: lightgreen; */
+    height: 45vh;
+    max-height: 400px;
+    
     position: relative;
     background: var(--color-main-dark);
     padding-bottom: 1rem;
-    max-height: 350px;
 }
 
 .navbar-anime {
@@ -1158,9 +1152,9 @@ main {
 .header-anime:not([data-banner=""])::before {
     content: "";
     /* backdrop-filter: blur(.1rem); */
-    /* filter: blur(30px); */
-    /* -webkit-filter: blur(10px); */
-    /* background: rgba(255, 255, 255, 0.308); */
+    /* filter: blur(1px); */
+    /* -webkit-filter: blur(1px); */
+    background: rgba(255, 255, 255, 0.137);
     width: 100%;
     height: 100%;
     position: absolute;
@@ -1172,15 +1166,17 @@ main {
 }
 
 .anime-header-cover-image {
-    max-width: 160px;
+    max-width: 200px;
     margin-right: .6rem;
+    /* border-radius: 12px; */
     /* border: 1px solid black; */
     /* height: auto; */
 }
 
+
 .anime-header-cover-image img {
     /* height: auto; */
-    /* border-radius: 12px; */
+    border-radius: 12px;
 }
 
 .header-anime-cover-title h3 {
@@ -1527,7 +1523,7 @@ main {
 
 
 @media screen and (min-width: 405px) {
-    /* Let's change the grids on the home page to 2x3 */
+    /* * Change the column count of the grid lists. */
 
     .search-cards-container, .grid-cards {
         grid-template-columns: repeat(3, 1fr);
@@ -1574,14 +1570,15 @@ main {
 
 @media screen and (min-width: 1000px) {
 
-    .container {
-        width: 82%;
-    }
-
+    
     .search-cards-container, .grid-cards {
         grid-template-columns: repeat(6, 1fr);
     }
-
+    
+    .container {
+        width: 82%;
+    }
+    
     .grid-cards-home .card-link:last-child {
         /* border: 1px solid green; */
         display: block;
