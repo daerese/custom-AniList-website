@@ -130,7 +130,7 @@
                         
                         {{#each queryData.popularityFilter}}
                             <div class="carousel-item">
-                                <a href="http://localhost:3001/anime/{{this.id}}" class="card-link" data-anime-id="{{this.id}}">
+                                <a href="anime/{{this.id}}" class="card-link" data-anime-id="{{this.id}}">
                                         
                                         {{!-- * Elements displayed on mobile --}}
                                         <div class="card-img-container">
@@ -149,7 +149,7 @@
                                     
                                     
                                 </a>
-                                <a class="card-banner-link" href="http://localhost:3001/anime/{{this.id}}">
+                                <a class="card-banner-link" href="anime/{{this.id}}">
                                     <div class="card-banner-container" style="--bg-image: url({{this.bannerImage}})">
                                     </div>
                                 </a>
@@ -214,7 +214,7 @@
                     
                     {{#each queryData.trendingFilter}}
                         
-                        <a class="card-link" href="http://localhost:3001/anime/{{this.id}}">
+                        <a class="card-link" href="anime/{{this.id}}">
                             <div class="card grid-card" data-anime-id="{{this.id}}">
                                 
                                 
