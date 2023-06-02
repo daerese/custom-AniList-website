@@ -44,7 +44,7 @@
         
         <div class="container header-content">
 
-            <h1 class="display">Welcome to AnyAnime</h1>
+            <h1 class="display">Welcome to AniClone</h1>
 
             <p>
                 Find your favorite anime, characters, and more through
@@ -285,6 +285,8 @@
 
     </section>
 
+    {{> footer}}
+
 
 <script>
 
@@ -333,7 +335,6 @@ $(document).ready( () => {
 
         if ($('#nav-menu').hasClass('nav-menu-open')) {
 
-            console.log('Menu has it. Removing it...')
             //$('#nav-menu').css('height', 'auto')
             $('#nav-menu').removeClass('nav-menu-open')
 

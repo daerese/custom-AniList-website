@@ -30,6 +30,13 @@
         <div class="results-header">
             <h3>Search Results</h3>
 
+
+            <div class="search-filters">
+
+
+
+            </div>
+
             <hr>
         </div>
 
@@ -83,18 +90,21 @@
                     </div>
                 </a>
 
-                <!-- <div class="test"></div>
-                <div class="test"></div>
-                <div class="test"></div>
-                <div class="test"></div>
-                <div class="test"></div>
-                <div class="test"></div> --> 
             {{/each}}
+
+            {{else}}
+
+            <div style="position: absolute; text-align: center; width: 100%;">
+                <h3 style="color: var(--lighter-text)">No results</h3>
+            </div>
             {{/if}}
+
         </div>
 
 
     </div>
+
+    {{> footer}}
 
 <script>
 $(document).ready( () => {
@@ -119,11 +129,9 @@ $(document).ready( () => {
                 $('#navbar').removeClass('navbar-bg')
             }
 
-            // TODO: Turn the button into an x. 
 
         } else {
 
-            console.log('Menu does not have it, adding it.')
             $('#nav-menu').addClass('nav-menu-open')
 
             $('#nav-menu').css({'opacity': 1,

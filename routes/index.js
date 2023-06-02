@@ -93,6 +93,12 @@ router.route('/').get( async (req, res) => {
         const trendingFilter = await getAnime(queries.animeCards.trendingFilter)
     
         const genres = await getAnime(queries.general.allGenreTags);
+        
+
+        // * Removes the innappropriate genre 
+        genres.GenreCollection = genres.GenreCollection.filter((genre) => {
+            return genre !== "Hentai"
+        })
     
         // * Making it available to the front-end
         res.locals.queryData = {

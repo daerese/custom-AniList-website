@@ -83,12 +83,83 @@ img {
 a {
     text-decoration: none;
     color: inherit;
-    transition-duration: 100ms;
+    transition-duration: 250ms;
 }
 
 a:visited { 
     color: inherit;
 }
+
+/* ****************** 
+* Footer
+* ********************/
+
+footer {
+    background: black;
+    color: white;
+    padding: 2rem 0;
+}
+
+.footer-top {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+}
+
+.footer-logo p {
+    margin: 0;
+}
+
+.footer-links {
+    padding: 0;
+    /* border: 1px solid green; */
+    font-size: .875rem;
+}
+
+
+.footer-links li {
+    list-style-type: none;
+    margin-bottom: 16px;
+}
+
+.footer-links a:hover,
+.footer-links a:focus {
+    color: var(--color-main-light);
+}
+
+.footer-links li:first-of-type {
+    opacity: .7;
+}
+
+.footer-bottom-links {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    gap: 16px;
+}
+
+.btn-footer-link {
+
+    display: block;
+    opacity: .75;
+    /* border: 1px solid white; */
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    /* padding: 24px; */
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.btn-footer-link:hover {
+    opacity: 1;
+    color: var(--color-main-light)
+}
+
+footer hr {
+    margin-bottom: 32px;
+}
+
 
 /* ****************** 
 * Universal Elements --> Grid cards
@@ -294,16 +365,18 @@ section {
 
 /* Small text? Maybe delete this */
 .subtext {
-    font-size: 14px;
+    /* 14px */
+    font-size: .875rem; 
     /* line-height: 20px; */
 }
 
 .caption {
-    font-size: 14px;
+    font-size: .875rem;
 }
 
 .subtext-small { 
-    font-size: 12px;
+    /* 14px */
+    font-size: .75rem;
 }
 
 .rating-text {
@@ -1475,6 +1548,7 @@ main {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
+    position: relative;
     /* justify-items: stretch; */
     /* align-items: stretch; */
     /* border: 1px solid green; */
