@@ -115,7 +115,7 @@
                         {{#if queryData.currAnime.characters}}
                             {{#each queryData.currAnime.characters.edges }}
 
-                            <a href="http://localhost:3001/characters/{{this.id}}">
+                            <a href="characters/{{this.id}}">
                                 <div class="card page-card character-card" data-character-id="{{this.id}}">
                                     <div class="page-card-image-container">
                                         <img class="card-img" src="{{this.node.image.large}}" alt="character-image">
@@ -145,7 +145,7 @@
 
                                 {{#if this.node.mediaRecommendation}}
                                 
-                                    <a href="http://localhost:3001/anime/{{this.node.mediaRecommendation.id}}">
+                                    <a href="anime/{{this.node.mediaRecommendation.id}}">
                                         <div class="card page-card rec-card" data-media-id="{{this.node.id}}">
                                             
                                             <div class="page-card-image-container">
@@ -400,7 +400,7 @@ $(document).ready( () => {
 
         
         const xhr = $.ajax({
-            url: `http://localhost:3001/review/${selectedBtn.getAttribute('data-review-id')}`, 
+            url: `review/${selectedBtn.getAttribute('data-review-id')}`, 
             method: 'GET',
             beforeSend: function(jq, settings) {
 
