@@ -1,33 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="/css/style.css">
-    <title>AnyAnime</title>
 
-    {{!-- Jquery CDN --}}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-
-    {{!-- Fonts --}}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
-
-    {{!-- Fontawesome icons --}}
-    <script src="https://kit.fontawesome.com/a4e8b7b3a4.js" crossorigin="anonymous"></script>
+    {{>head}}    
 
     <script>
         document.onreadystatechange = function () {
             if (document.readyState != 'complete') {
                 $('.loading-screen').css('display', 'grid')
-                console.log('loading...')
+                //console.log('loading...')
 
             } else if (document.readyState == 'complete') {
                 $('.loading-screen').fadeOut()
-                console.log('Fully loaded!')
+                //console.log('Fully loaded!')
             }
         }
     </script>
@@ -112,6 +98,7 @@
 
             <h2 class="spotlight-header">Top 10 Most Popular</h2>
 
+            {{!-- Carousel wrapper --}}
             <div class="carousel flex">
 
                 <div class="carousel-left">
@@ -319,7 +306,7 @@ $(document).ready( () => {
             if(!($('#nav-menu').hasClass('nav-menu-open'))) {
                 $('#navbar').removeClass('navbar-bg')
             }
-            console.log('Back at the top')
+            //console.log('Back at the top')
         }
     })
 
@@ -328,7 +315,7 @@ $(document).ready( () => {
     })
 
     $('#nav-menu').mouseenter(() => {
-        console.log('Nav menu Hovered')
+        //console.log('Nav menu Hovered')
     })
 
     function toggleNav(event) {
@@ -349,7 +336,7 @@ $(document).ready( () => {
 
         } else {
 
-            console.log('Menu does not have it, adding it.')
+            //console.log('Menu does not have it, adding it.')
             $('#nav-menu').addClass('nav-menu-open')
 
             $('#nav-menu').css({'opacity': 1,
@@ -366,10 +353,23 @@ $(document).ready( () => {
         $('#nav-menu').css('height', 0)
     }
 
-    // Carousel
-    function nextSlide() {
-        
-    }
+    //******* Carousel
+    const carousel = document.querySelector('.carousel-content');
+
+    const carouselItem = document.querySelector('.carousel-item');
+
+    const btnCarouselLeft = document.querySelector('#btn-carousel-left')
+    const btnCarouselRight = document.querySelector('#btn-carousel-right')
+
+    btnCarouselRight.addEventListener('click', () => {
+        carousel.scrollLeft += carouselItem.clientWidth;
+    })
+    btnCarouselLeft.addEventListener('click', () => {
+        carousel.scrollLeft -= carouselItem.clientWidth;
+    })
+
+
+    
 
 })
 
