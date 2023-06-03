@@ -91,15 +91,17 @@
                 </a>
 
             {{/each}}
-
-            {{else}}
-
-            <div style="position: absolute; text-align: center; width: 100%;">
-                <h3 style="color: var(--lighter-text)">No results</h3>
-            </div>
+            
             {{/if}}
 
         </div>
+
+        {{#unless queryData.results}}
+        
+            <div style="text-align: center; width: 100%;">
+                <h3 style="color: var(--lighter-text)">No results</h3>
+            </div>
+        {{/unless}}
 
 
     </div>
