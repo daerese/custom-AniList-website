@@ -53,6 +53,9 @@ body {
 
     position: relative;
     min-height: 100vh;
+
+    /** This also helps keep the footer from overlapping */
+    border-bottom: 1px solid transparent;
     /* background: linear-gradient(to bottom, var(--color-main), white); */
     /* background-position: center; */
     /* background-size: 100vh; */
