@@ -167,6 +167,21 @@ footer hr {
 }
 
 
+@media screen and (max-width: 600px) {
+    .footer-top {
+        grid-template-columns: 1fr;
+        gap: .875rem;
+    }
+
+    .footer-links {
+        margin: 0;
+    }
+
+    .footer-bottom-links {
+        justify-content: flex-start;
+    }
+}
+
 /* ****************** 
 * Universal Elements --> Grid cards
 * ********************/
