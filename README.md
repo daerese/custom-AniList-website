@@ -4,7 +4,7 @@
 ## [anilist-clone.onrender.com](https://anilist-clone.onrender.com/)
 
 This is a fully responsive website. It was created for practice using API's and 
-making a multi-page website in Node.js.
+making a multi-page website with Node.js.
 
 > The overall design was inspired by **[AniList.co](https://anilist.co/)**.
 
