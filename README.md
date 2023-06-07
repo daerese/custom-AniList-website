@@ -17,6 +17,10 @@ making a multi-page website with Node.js.
 - [Handlebars](https://handlebarsjs.com/guide/#what-is-handlebars)
 - [GraphQL](https://graphql.org/learn/queries/)
 
+### Helful resources
+- [7 habits of highly effective media queries](https://bradfrost.com/blog/post/7-habits-of-highly-effective-media-queries/)
+- [Font Size Guidelines For Responsive Design](https://www.learnui.design/blog/mobile-desktop-website-font-size-guidelines.html)
+
 
 ## Credits
 - **[AniList.co](https://anilist.co/)**
